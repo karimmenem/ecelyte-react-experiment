@@ -77,7 +77,6 @@ const TechMarquee = () => {
     'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
     'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
     'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-    'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
   ];
 
   const duplicatedIcons = [...techIcons, ...techIcons];
