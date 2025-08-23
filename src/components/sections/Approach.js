@@ -21,11 +21,11 @@ const SectionTitle = styled(motion.h2)`
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 700;
   color: ${theme.colors.secondary};
-  margin: 0 0 2rem 0; /* REDUCED from 4rem to 2rem */
+  margin: 0 0 2rem 0;
   font-family: ${theme.fonts.primary};
   
   @media (max-width: ${theme.breakpoints.tablet}) {
-    margin: 0 0 1.5rem 0; /* REDUCED mobile spacing too */
+    margin: 0 0 1.5rem 0;
   }
 `;
 
@@ -36,8 +36,6 @@ const QuoteText = styled(motion.p)`
   font-weight: 400;
   margin: 0;
   opacity: 0.9;
-  
-  /* REMOVED the quotation mark */
   
   @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: clamp(1.1rem, 4vw, 1.8rem);
@@ -74,7 +72,7 @@ const Approach = () => {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.03, // FASTER - reduced from 0.08 to 0.03
+        staggerChildren: 0.03,
       }
     }
   };
@@ -82,13 +80,13 @@ const Approach = () => {
   const wordVariants = {
     hidden: {
       opacity: 0,
-      y: 10, // REDUCED movement for faster feel
+      y: 10,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3, // FASTER - reduced from 0.5 to 0.3
+        duration: 0.3,
         ease: [0.25, 0.1, 0.25, 1]
       }
     }

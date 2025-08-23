@@ -1,9 +1,9 @@
 export const theme = {
   colors: {
-    primary: '#ecebe4',     // Real cream background
-    secondary: '#172126',   // Real dark navy
-    accent: '#9b9074',      // Real brown accent
-    text: '#0c1015',        // Real dark text
+    primary: '#ecebe4',
+    secondary: '#172126',
+    accent: '#9b9074',
+    text: '#0c1015',
     white: '#ffffff',
   },
   

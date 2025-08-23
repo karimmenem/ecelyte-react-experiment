@@ -77,9 +77,15 @@ const MenuButton = styled.button`
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleContact = () => {
+    setIsContactOpen(!isContactOpen);
+    if (isMenuOpen) setIsMenuOpen(false);
   };
 
   return (
@@ -89,7 +95,7 @@ const Header = () => {
           <Logo>encelyte</Logo>
           
           <HeaderButtons>
-            <CTAButton>Let's Build Together!</CTAButton>
+            <CTAButton onClick={toggleContact}>Let's Build Together!</CTAButton>
             <MenuButton onClick={toggleMenu}>Menu</MenuButton>
           </HeaderButtons>
         </Nav>
@@ -165,7 +171,7 @@ const Header = () => {
             gap: '1.5rem'
           }}>
             <a
-              href="/"
+              href="#home"
               style={{
                 fontSize: '2rem',
                 fontWeight: '500',
@@ -180,7 +186,7 @@ const Header = () => {
               Home
             </a>
             <a
-              href="/"
+              href="#services"
               style={{
                 fontSize: '2rem',
                 fontWeight: '500',
@@ -202,7 +208,9 @@ const Header = () => {
               fontSize: '1rem'
             }}>
               <a
-                href="/"
+                href="https://www.linkedin.com/company/encelyte"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   color: '#ffffff',
                   textDecoration: 'none',
@@ -215,7 +223,9 @@ const Header = () => {
                 LinkedIn
               </a>
               <a
-                href="/"
+                href="https://www.instagram.com/encelyte/"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   color: '#ffffff',
                   textDecoration: 'none',
@@ -228,7 +238,9 @@ const Header = () => {
                 Instagram
               </a>
               <a
-                href="/"
+                href="https://wa.me/35796733800"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   color: '#ffffff',
                   textDecoration: 'none',
@@ -241,7 +253,9 @@ const Header = () => {
                 WhatsApp
               </a>
               <a
-                href="/"
+                href="https://www.facebook.com/encelyte"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   color: '#ffffff',
                   textDecoration: 'none',
@@ -256,6 +270,281 @@ const Header = () => {
             </div>
           </div>
         </motion.div>
+      )}
+
+      {isContactOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 1500,
+              backdropFilter: 'blur(4px)'
+            }}
+            onClick={toggleContact}
+          />
+          
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              width: '38%',
+              height: '100vh',
+              backgroundColor: '#f5f5f5',
+              zIndex: 2000,
+              padding: '2rem',
+              overflowY: 'auto',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '2rem'
+            }}>
+              <h2 style={{
+                fontSize: '1.5rem',
+                fontWeight: '600',
+                color: '#1a1a1a',
+                margin: 0
+              }}>
+                Contact
+              </h2>
+              
+              <button
+                onClick={toggleContact}
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  color: '#ffffff',
+                  border: 'none',
+                  padding: '0.6rem 1.2rem',
+                  borderRadius: '20px',
+                  fontSize: '0.85rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                Close
+              </button>
+            </div>
+
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1.8rem',
+                fontWeight: '500',
+                color: '#1a1a1a',
+                margin: '0 0 1rem 0',
+                lineHeight: '1.3'
+              }}>
+                Have a project you'd like to talk about?
+              </h3>
+            </div>
+
+            <div style={{
+              fontSize: '1.2rem',
+              marginBottom: '2rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <span style={{ color: '#666666' }}>contact</span>
+              <span style={{ color: '#7da7c7' }}>@</span>
+              <span style={{ color: '#666666' }}>encelyte.com</span>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              marginBottom: '2rem'
+            }}>
+              <a
+                href="https://wa.me/35796733800"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  color: '#ffffff',
+                  padding: '0.8rem 1.5rem',
+                  borderRadius: '25px',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  fontWeight: '500',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                WhatsApp
+              </a>
+              <button
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  color: '#ffffff',
+                  border: 'none',
+                  padding: '0.8rem 1.5rem',
+                  borderRadius: '25px',
+                  fontSize: '0.9rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                Book a call
+              </button>
+            </div>
+
+            <div style={{
+              fontSize: '0.9rem',
+              color: '#666666',
+              marginBottom: '2rem'
+            }}>
+              <div>Nicosia, Cyprus</div>
+              <div>14:52 PM EET</div>
+            </div>
+
+            <form style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+              flex: 1
+            }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '1rem'
+              }}>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.9rem',
+                    color: '#666666',
+                    marginBottom: '0.5rem'
+                  }}>
+                    What is your name?
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    style={{
+                      width: '100%',
+                      padding: '0.8rem',
+                      border: '1px solid #ddd',
+                      borderRadius: '8px',
+                      fontSize: '0.9rem',
+                      outline: 'none',
+                      transition: 'border-color 0.3s ease'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.9rem',
+                    color: '#666666',
+                    marginBottom: '0.5rem'
+                  }}>
+                    What is your email?
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    style={{
+                      width: '100%',
+                      padding: '0.8rem',
+                      border: '1px solid #ddd',
+                      borderRadius: '8px',
+                      fontSize: '0.9rem',
+                      outline: 'none',
+                      transition: 'border-color 0.3s ease'
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.9rem',
+                  color: '#666666',
+                  marginBottom: '0.5rem'
+                }}>
+                  What is the name of your company/organisation?
+                </label>
+                <input
+                  type="text"
+                  placeholder="Company/Organisation"
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    border: '1px solid #ddd',
+                    borderRadius: '8px',
+                    fontSize: '0.9rem',
+                    outline: 'none',
+                    transition: 'border-color 0.3s ease'
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.9rem',
+                  color: '#666666',
+                  marginBottom: '0.5rem'
+                }}>
+                  Tell us a bit more about your project
+                </label>
+                <textarea
+                  placeholder="Briefly describe the chosen service"
+                  rows={4}
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    border: '1px solid #ddd',
+                    borderRadius: '8px',
+                    fontSize: '0.9rem',
+                    outline: 'none',
+                    resize: 'vertical',
+                    transition: 'border-color 0.3s ease'
+                  }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  color: '#ffffff',
+                  border: 'none',
+                  padding: '1rem 2rem',
+                  borderRadius: '25px',
+                  fontSize: '0.9rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  alignSelf: 'flex-start',
+                  marginTop: 'auto'
+                }}
+              >
+                Send message
+              </button>
+            </form>
+          </motion.div>
+        </>
       )}
     </>
   );

@@ -21,21 +21,62 @@ const Footer = () => {
             opacity: 0.85
           }}
         >
-          {['Linkedin', 'WhatsApp', 'Facebook', 'Instagram'].map((link, index) => (
-            <a
-              key={index}
-              href="/"
-              style={{
-                color: '#ffffff',
-                textDecoration: 'none',
-                transition: 'color 0.3s ease'
-              }}
-              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
-              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
-            >
-              {link}
-            </a>
-          ))}
+          <a
+            href="https://www.linkedin.com/company/encelyte"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#ffffff',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+            onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+          >
+            Linkedin
+          </a>
+          <a
+            href="https://wa.me/35796733800"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#ffffff',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+            onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+          >
+            WhatsApp
+          </a>
+          <a
+            href="https://www.facebook.com/encelyte"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#ffffff',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+            onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+          >
+            Facebook
+          </a>
+          <a
+            href="https://www.instagram.com/encelyte/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#ffffff',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+            onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+          >
+            Instagram
+          </a>
         </div>
 
         <div
@@ -61,13 +102,19 @@ const Footer = () => {
               Curious how Encelyte can help?
             </h2>
 
-            <div
+            <a
+              href="mailto:contact@encelyte.com"
               style={{
                 fontSize: 'clamp(1.4rem, 3vw, 2.6rem)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.3rem'
+                gap: '0.3rem',
+                color: '#ffffff',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease'
               }}
+              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
             >
               <span style={{ opacity: 0.9, fontWeight: '400' }}>contact</span>
               <span
@@ -79,7 +126,7 @@ const Footer = () => {
                 @
               </span>
               <span style={{ opacity: 0.9, fontWeight: '400' }}>encelyte.com</span>
-            </div>
+            </a>
           </div>
 
           <div
@@ -91,22 +138,45 @@ const Footer = () => {
               paddingTop: '1.3rem'
             }}
           >
-            {['Home', 'Services', 'Contact'].map((link, index) => (
-              <a
-                key={index}
-                href="/"
-                style={{
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  opacity: 0.85,
-                  transition: 'color 0.3s ease'
-                }}
-                onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
-                onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
-              >
-                {link}
-              </a>
-            ))}
+            <a
+              href="#home"
+              style={{
+                color: '#ffffff',
+                textDecoration: 'none',
+                opacity: 0.85,
+                transition: 'color 0.3s ease'
+              }}
+              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+            >
+              Home
+            </a>
+            <a
+              href="#services"
+              style={{
+                color: '#ffffff',
+                textDecoration: 'none',
+                opacity: 0.85,
+                transition: 'color 0.3s ease'
+              }}
+              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+            >
+              Services
+            </a>
+            <a
+              href="mailto:contact@encelyte.com"
+              style={{
+                color: '#ffffff',
+                textDecoration: 'none',
+                opacity: 0.85,
+                transition: 'color 0.3s ease'
+              }}
+              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+            >
+              Contact
+            </a>
           </div>
         </div>
 
