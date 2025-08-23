@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
@@ -76,17 +76,188 @@ const MenuButton = styled.button`
 `;
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <HeaderContainer>
-      <Nav>
-        <Logo>encelyte</Logo>
-        
-        <HeaderButtons>
-          <CTAButton>Let's Build Together!</CTAButton>
-          <MenuButton>Menu</MenuButton>
-        </HeaderButtons>
-      </Nav>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <Nav>
+          <Logo>encelyte</Logo>
+          
+          <HeaderButtons>
+            <CTAButton>Let's Build Together!</CTAButton>
+            <MenuButton onClick={toggleMenu}>Menu</MenuButton>
+          </HeaderButtons>
+        </Nav>
+      </HeaderContainer>
+
+      {isMenuOpen && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          style={{
+            position: 'fixed',
+            top: '1.5rem',
+            right: '2rem',
+            width: '350px',
+            height: '400px',
+            backgroundColor: '#1a1a1a',
+            borderRadius: '30px',
+            zIndex: 2000,
+            padding: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            transformOrigin: 'top right',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
+          }}
+        >
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '2rem'
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              backgroundColor: '#ffffff',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <div style={{
+                width: '20px',
+                height: '20px',
+                backgroundColor: '#1a1a1a',
+                borderRadius: '50%'
+              }}></div>
+            </div>
+            
+            <button
+              onClick={toggleMenu}
+              style={{
+                backgroundColor: '#ffffff',
+                color: '#1a1a1a',
+                border: 'none',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '20px',
+                fontSize: '0.85rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              Close
+            </button>
+          </div>
+
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5rem'
+          }}>
+            <a
+              href="/"
+              style={{
+                fontSize: '2rem',
+                fontWeight: '500',
+                color: '#ffffff',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+                marginBottom: '0.5rem'
+              }}
+              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+            >
+              Home
+            </a>
+            <a
+              href="/"
+              style={{
+                fontSize: '2rem',
+                fontWeight: '500',
+                color: '#ffffff',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+                marginBottom: '2rem'
+              }}
+              onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+              onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+            >
+              Services
+            </a>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+              fontSize: '1rem'
+            }}>
+              <a
+                href="/"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  opacity: 0.8,
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+                onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+              >
+                LinkedIn
+              </a>
+              <a
+                href="/"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  opacity: 0.8,
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+                onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+              >
+                Instagram
+              </a>
+              <a
+                href="/"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  opacity: 0.8,
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+                onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+              >
+                WhatsApp
+              </a>
+              <a
+                href="/"
+                style={{
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  opacity: 0.8,
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => (e.target.style.color = '#a8b7c7')}
+                onMouseLeave={(e) => (e.target.style.color = '#ffffff')}
+              >
+                Facebook
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 };
 
