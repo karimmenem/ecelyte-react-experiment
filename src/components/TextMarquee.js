@@ -94,8 +94,6 @@ const TextMarquee = () => {
           </React.Fragment>
         ))}
       </MarqueeTrack>
-
-      
     </MarqueeSection>
   );
 };
