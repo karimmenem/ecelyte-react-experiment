@@ -25,6 +25,12 @@ const orbSpin = keyframes`0%{transform:rotate(0deg);}100%{transform:rotate(360de
 const orbPulse = keyframes`0%,100%{transform:scale(1);opacity:.9;}50%{transform:scale(1.15);opacity:.55;}`;
 const gradientShift = keyframes`0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}`;
 
+// Moved above SimpleLogo to avoid ReferenceError
+const LogoLink = styled.a`
+  display:inline-flex; text-decoration:none; margin-right:auto; padding:.4rem .4rem .55rem .2rem; position:relative; cursor:pointer;
+  &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:4px; border-radius:6px; }
+`;
+
 const SimpleLogo = styled.span`
   position:relative; font-family:${({ theme }) => theme.fonts.primary};
   font-size:1.95rem; font-weight:700; letter-spacing:-0.028em; line-height:1; display:inline-flex; align-items:flex-end; gap:.4rem; color:${({ theme }) => theme.colors.secondary};
@@ -33,11 +39,6 @@ const SimpleLogo = styled.span`
   &:after { content:''; position:absolute; left:0; bottom:-6px; height:3px; width:100%; background:linear-gradient(90deg, ${({ theme }) => theme.colors.accent} 0%, ${({ theme }) => theme.colors.secondary} 70%); border-radius:3px; transform:scaleX(.35) translateY(0); transform-origin:left center; opacity:.4; transition:transform .6s cubic-bezier(.19,1,.22,1), opacity .6s ease; }
   ${LogoLink}:hover &::after { transform:scaleX(1); opacity:.75; }
   @media (max-width:${({ theme }) => theme.breakpoints.tablet}) { font-size:1.7rem; }
-`;
-
-const LogoLink = styled.a`
-  display:inline-flex; text-decoration:none; margin-right:auto; padding:.4rem .4rem .55rem .2rem; position:relative; cursor:pointer;
-  &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:4px; border-radius:6px; }
 `;
 
 const HeaderButtons = styled.div`
@@ -318,6 +319,26 @@ const SubmitButton = styled.button`
   }
 `;
 
+const MenuPanel = styled(motion.div)`
+  position:fixed; top:1.5rem; right:2rem; width:350px; height:440px; z-index:2000;
+  display:flex; flex-direction:column; padding:2rem; border-radius:30px;
+  background: ${({ theme }) => theme.mode === 'dark'
+    ? `linear-gradient(145deg, ${theme.colors.panelAlt} 0%, ${theme.colors.panel} 85%)`
+    : `linear-gradient(145deg, ${theme.colors.secondary} 0%, ${theme.colors.blueMid || '#014572'} 85%)`};
+  color:${({ theme }) => theme.mode === 'dark' ? theme.colors.white : theme.colors.primary};
+  box-shadow:0 20px 44px -8px rgba(0,0,0,.5), 0 0 0 1px ${({ theme }) => theme.colors.borderAlt}40 inset;
+  backdrop-filter: blur(18px) saturate(160%);
+  border:1px solid ${({ theme }) => theme.colors.borderAlt}40; overflow:hidden;
+`;
+
+const MenuTop = styled.div`display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;`;
+const MenuBadge = styled.div`width:40px; height:40px; border-radius:14px; background:${({ theme }) => theme.mode==='dark'? theme.colors.accent : theme.colors.white}; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px -4px rgba(0,0,0,.4);`;
+const MenuClose = styled.button`background:${({ theme }) => theme.mode==='dark'? theme.colors.panel : theme.colors.white}; color:${({ theme }) => theme.mode==='dark'? theme.colors.white : theme.colors.secondary}; border:1px solid ${({ theme }) => theme.colors.borderAlt}55; padding:.55rem 1.15rem; border-radius:18px; font-size:.75rem; font-weight:600; letter-spacing:.05em; cursor:pointer; transition:background .35s ease, color .35s ease, transform .35s ease; &:hover{background:${({ theme }) => theme.colors.accent}; color:${({ theme }) => theme.colors.primary}; transform:translateY(-2px);} &:focus-visible{outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:3px;}`;
+const MenuLinks = styled.div`flex:1; display:flex; flex-direction:column; gap:1.35rem;`;
+const MenuLink = styled.a`font-size:1.55rem; font-weight:500; text-decoration:none; color:${({ theme }) => theme.mode==='dark'? theme.colors.white : theme.colors.white}; position:relative; transition:color .35s ease, opacity .35s ease; opacity:.95; &:hover{color:${({ theme }) => theme.colors.borderAlt};} &:focus-visible{outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:3px;} &.small{font-size:1.15rem; opacity:.8; margin-top:auto;}`;
+const SocialGrid = styled.div`display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:.95rem; margin-top:1rem;`;
+const SocialLink = styled.a`text-decoration:none; color:${({ theme }) => theme.mode==='dark'? theme.colors.textLight : theme.colors.white}; opacity:.85; transition:color .35s ease, opacity .35s ease; &:hover{color:${({ theme }) => theme.colors.borderAlt}; opacity:1;}`;
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -380,31 +401,28 @@ const Header = () => {
       </HeaderContainer>
 
       {isMenuOpen && (
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
+        <MenuPanel
+          initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0, opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          style={{ position:'fixed', top:'1.5rem', right:'2rem', width:'350px', height:'440px', backgroundColor: theme.colors.secondary, color: theme.colors.primary, borderRadius:'30px', zIndex:2000, padding:'2rem', display:'flex', flexDirection:'column', transformOrigin:'top right', boxShadow:'0 20px 40px rgba(0,0,0,0.3)', transition:'background 0.4s ease, color 0.4s ease' }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ duration: 0.32, ease: 'easeOut' }}
         >
-          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'2rem' }}>
-            <div style={{ width:'40px', height:'40px', backgroundColor: theme.colors.white, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>
-              <div style={{ width:'20px', height:'20px', backgroundColor: theme.colors.secondary, borderRadius:'50%' }} />
-            </div>
-            <button onClick={toggleMenu} style={{ backgroundColor: theme.colors.white, color: theme.colors.secondary, border:'none', padding:'0.6rem 1.2rem', borderRadius:'20px', fontSize:'0.85rem', fontWeight:'500', cursor:'pointer', transition:'all 0.3s ease' }}>Close</button>
-          </div>
-          <div style={{ flex:1, display:'flex', flexDirection:'column', gap:'1.25rem' }}>
-            <a href="#home" style={{ fontSize:'1.6rem', fontWeight:500, color: theme.colors.white, textDecoration:'none', transition:'color .3s ease' }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>Home</a>
-            <a href="#services" style={{ fontSize:'1.6rem', fontWeight:500, color: theme.colors.white, textDecoration:'none', transition:'color .3s ease', marginBottom:'1rem' }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>Services</a>
-            <a href="#/admin/login" style={{ fontSize:'1.2rem', fontWeight:500, color: theme.colors.white, textDecoration:'none', transition:'color .3s ease', marginTop:'auto', opacity:.85 }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>Admin</a>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem', fontSize:'0.95rem', marginTop:'1rem' }}>
-              <a href="https://www.linkedin.com/company/encelyte" target="_blank" rel="noopener noreferrer" style={{ color: theme.colors.white, textDecoration:'none', opacity:.8, transition:'color .3s ease' }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>LinkedIn</a>
-              <a href="https://www.instagram.com/encelyte/" target="_blank" rel="noopener noreferrer" style={{ color: theme.colors.white, textDecoration:'none', opacity:.8, transition:'color .3s ease' }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>Instagram</a>
-              <a href="https://wa.me/35796733800" target="_blank" rel="noopener noreferrer" style={{ color: theme.colors.white, textDecoration:'none', opacity:.8, transition:'color .3s ease' }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>WhatsApp</a>
-              <a href="https://www.facebook.com/encelyte" target="_blank" rel="noopener noreferrer" style={{ color: theme.colors.white, textDecoration:'none', opacity:.8, transition:'color .3s ease' }} onMouseEnter={e=>e.target.style.color=theme.colors.borderAlt} onMouseLeave={e=>e.target.style.color=theme.colors.white}>Facebook</a>
-            </div>
-          </div>
-        </motion.div>
+          <MenuTop>
+            <MenuBadge><span style={{width:10,height:10,borderRadius:'50%',background:theme.colors.primary,display:'block'}} /></MenuBadge>
+            <MenuClose onClick={toggleMenu}>Close</MenuClose>
+          </MenuTop>
+          <MenuLinks>
+            <MenuLink href="#home" onClick={toggleMenu}>Home</MenuLink>
+            <MenuLink href="#services" onClick={toggleMenu}>Services</MenuLink>
+            <MenuLink href="#/admin/login" className="small" onClick={toggleMenu}>Admin</MenuLink>
+            <SocialGrid>
+              <SocialLink href="https://www.linkedin.com/company/encelyte" target="_blank" rel="noopener noreferrer">LinkedIn</SocialLink>
+              <SocialLink href="https://www.instagram.com/encelyte/" target="_blank" rel="noopener noreferrer">Instagram</SocialLink>
+              <SocialLink href="https://wa.me/35796733800" target="_blank" rel="noopener noreferrer">WhatsApp</SocialLink>
+              <SocialLink href="https://www.facebook.com/encelyte" target="_blank" rel="noopener noreferrer">Facebook</SocialLink>
+            </SocialGrid>
+          </MenuLinks>
+        </MenuPanel>
       )}
 
       {isContactOpen && (
