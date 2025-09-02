@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { theme } from '../../styles/theme';
 import TechMarquee from '../TechMarquee';
 
 const HeroContainer = styled.section`
@@ -11,7 +10,7 @@ const HeroContainer = styled.section`
   align-items: center;
   justify-content: center;
   padding: 8rem 2rem 4rem;
-  background-color: ${theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary};
   text-align: center;
 `;
 
@@ -28,9 +27,9 @@ const MainTitle = styled(motion.h1)`
   font-size: clamp(3.5rem, 7vw, 6rem);
   font-weight: 700;
   line-height: 0.9;
-  color: ${theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
   margin: 0 0 2rem 0;
-  font-family: ${theme.fonts.primary};
+  font-family: ${({ theme }) => theme.fonts.primary};
   letter-spacing: -0.02em;
   text-align: center;
   width: 100%;
@@ -43,7 +42,7 @@ const MainTitle = styled(motion.h1)`
 const Description = styled(motion.p)`
   font-size: 1.2rem;
   line-height: 1.6;
-  color: ${theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
   max-width: 700px;
   margin: 0 auto;
   opacity: 0.8;
@@ -63,7 +62,7 @@ const DownArrow = styled(motion.div)`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.secondary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +71,7 @@ const DownArrow = styled(motion.div)`
   
   &::after {
     content: '↓';
-    color: ${theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 1.5rem;
   }
 `;

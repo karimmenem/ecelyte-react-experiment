@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { theme } from '../../styles/theme';
 
 const ApproachContainer = styled.section`
   padding: 8rem 2rem;
-  background-color: ${theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary};
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   max-width: 1200px;
   margin: 0 auto;
-  
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  transition: background 0.4s ease, color 0.4s ease;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 6rem 2rem;
   }
 `;
@@ -20,11 +20,12 @@ const ApproachContainer = styled.section`
 const SectionTitle = styled(motion.h2)`
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 700;
-  color: ${theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
   margin: 0 0 2rem 0;
-  font-family: ${theme.fonts.primary};
-  
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  font-family: ${({ theme }) => theme.fonts.primary};
+  transition: color 0.4s ease;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin: 0 0 1.5rem 0;
   }
 `;
@@ -32,12 +33,13 @@ const SectionTitle = styled(motion.h2)`
 const QuoteText = styled(motion.p)`
   font-size: clamp(1.3rem, 2.5vw, 2.2rem);
   line-height: 1.5;
-  color: ${theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
   font-weight: 400;
   margin: 0;
   opacity: 0.9;
-  
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  transition: color 0.4s ease;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: clamp(1.1rem, 4vw, 1.8rem);
     line-height: 1.4;
   }

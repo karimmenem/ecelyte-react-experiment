@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { theme } from '../styles/theme';
 
 const MarqueeSection = styled.section`
   width: 100vw;
@@ -9,7 +8,37 @@ const MarqueeSection = styled.section`
   margin-left: 50%;
   transform: translateX(-50%);
   padding: 3rem 0;
-  background-color: ${theme.colors.primary};
+  transition: background 0.4s ease;
+  background: ${({ theme }) => theme.mode === 'dark'
+    ? `linear-gradient(180deg, ${theme.colors.backgroundDark} 0%, ${theme.colors.panel} 55%, ${theme.colors.backgroundDark} 100%)`
+    : `linear-gradient(180deg, ${theme.colors.primary} 0%, ${theme.colors.panel} 55%, ${theme.colors.primary} 100%)`};
+  border-top: 1px solid ${({ theme }) => theme.colors.borderAlt}33;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderAlt}33;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 160px;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, ${({ theme }) => theme.mode === 'dark'? theme.colors.backgroundDark : theme.colors.primary} 0%, transparent 100%);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(270deg, ${({ theme }) => theme.mode === 'dark'? theme.colors.backgroundDark : theme.colors.primary} 0%, transparent 100%);
+  }
+
+  /* subtle center glow */
+  &:after {
+    box-shadow: none;
+  }
 `;
 
 const scrollRight = keyframes`
@@ -36,44 +65,53 @@ const MarqueeTrack = styled.div`
   white-space: nowrap;
   width: 200%;
   margin-bottom: 0.5rem;
-  
+  gap: 2.25rem;
+  position: relative;
+
   &.right {
-    animation: ${scrollRight} 25s linear infinite;
+    animation: ${scrollRight} 22s linear infinite;
   }
-  
+
   &.left {
-    animation: ${scrollLeft} 25s linear infinite;
+    animation: ${scrollLeft} 22s linear infinite;
+  }
+
+  &:hover {
+    animation-play-state: paused;
   }
 `;
 
 const MarqueeText = styled.span`
-  font-size: clamp(2.25rem, 6vw, 6rem);
+  font-size: clamp(1.4rem, 4.2vw, 3.2rem); /* reduced */
   font-weight: 700;
-  color: ${theme.colors.secondary};
-  font-family: ${theme.fonts.primary};
-  margin-right: 2.25rem;
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.fonts.primary};
   text-transform: uppercase;
-  
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: clamp(1.5rem, 4.5vw, 3.75rem);
-    margin-right: 1.5rem;
+  transition: color .4s ease;
+  letter-spacing: -0.02em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: clamp(1.1rem, 3.8vw, 2.3rem);
   }
 `;
 
 const Separator = styled.span`
-  font-size: clamp(1.5rem, 4.5vw, 4.5rem);
-  color: #8B7355;
-  margin-right: 2.25rem;
-  
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: clamp(1.125rem, 3vw, 3rem);
-    margin-right: 1.5rem;
+  font-size: clamp(1.2rem, 3.8vw, 2.8rem); /* reduced */
+  line-height: 1;
+  display: inline-block;
+  transform: translateY(-4%);
+  color: ${({ theme }) => theme.mode === 'dark' ? theme.colors.borderAlt : theme.colors.accent};
+  opacity: .55;
+  transition: color .4s ease, opacity .4s ease;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: clamp(.9rem, 2.8vw, 1.9rem);
   }
 `;
 
 const TextMarquee = () => {
-  const rightTextArray = Array(8).fill("LET'S DIVE IN");
-  const leftTextArray = Array(8).fill("WILD IDEAS!");
+  const rightTextArray = Array(10).fill('EXPLORE OUR WORK');
+  const leftTextArray = Array(10).fill('BOLD SOLUTIONS!');
 
   return (
     <MarqueeSection>
@@ -81,7 +119,7 @@ const TextMarquee = () => {
         {rightTextArray.map((text, index) => (
           <React.Fragment key={`right-${index}`}>
             <MarqueeText>{text}</MarqueeText>
-            <Separator>—</Separator>
+            <Separator aria-hidden="true">—</Separator>
           </React.Fragment>
         ))}
       </MarqueeTrack>
@@ -90,7 +128,7 @@ const TextMarquee = () => {
         {leftTextArray.map((text, index) => (
           <React.Fragment key={`left-${index}`}>
             <MarqueeText>{text}</MarqueeText>
-            <Separator>—</Separator>
+            <Separator aria-hidden="true">—</Separator>
           </React.Fragment>
         ))}
       </MarqueeTrack>
