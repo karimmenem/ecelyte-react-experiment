@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import Careers from './pages/Careers';
 import { createTheme } from './styles/theme';
 import { ThemeProvider } from 'styled-components';
 
@@ -28,6 +29,13 @@ const AppRouter = () => {
       <ThemeProvider theme={theme}>
         {hash === '#/admin/login' && !adminAuthed && <AdminLogin onLogin={() => { setAdminAuthed(true); window.location.hash = '#/admin/dashboard'; }} />}
         {hash === '#/admin/dashboard' && adminAuthed && <AdminDashboard onLogout={() => { setAdminAuthed(false); window.location.hash = '#/admin/login'; }} />}
+      </ThemeProvider>
+    );
+  }
+  if (hash === '#/careers') {
+    return (
+      <ThemeProvider theme={theme}>
+        <Careers />
       </ThemeProvider>
     );
   }

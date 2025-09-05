@@ -415,6 +415,7 @@ const Header = () => {
             <MenuLink href="#home" onClick={toggleMenu}>Home</MenuLink>
             <MenuLink href="#services" onClick={toggleMenu}>Services</MenuLink>
             <MenuLink href="#/admin/login" className="small" onClick={toggleMenu}>Admin</MenuLink>
+            <MenuLink href="#/careers" className="small" onClick={toggleMenu}>Careers</MenuLink>
             <SocialGrid>
               <SocialLink href="https://www.linkedin.com/company/encelyte" target="_blank" rel="noopener noreferrer">LinkedIn</SocialLink>
               <SocialLink href="https://www.instagram.com/encelyte/" target="_blank" rel="noopener noreferrer">Instagram</SocialLink>
