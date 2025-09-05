@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -30,97 +30,73 @@ const SectionTitle = styled(motion.h2)`
   }
 `;
 
-const QuoteText = styled(motion.p)`
+const QuoteText = styled.p`
   font-size: clamp(1.3rem, 2.5vw, 2.2rem);
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.secondary};
   font-weight: 400;
   margin: 0;
-  opacity: 0.9;
+  opacity: 0.95;
   transition: color 0.4s ease;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: clamp(1.1rem, 4vw, 1.8rem);
-    line-height: 1.4;
-  }
+  max-width: 1000px;
 `;
 
-const AnimatedWord = styled(motion.span)`
-  display: inline-block;
-  margin-right: 0.3em;
+const AnimatedWord = styled.span`
+  display:inline-block; margin-right:0.3em; position:relative; will-change:filter, transform, opacity; filter:blur(6px); opacity:.25; transform:translateY(6px);
+  transition:filter .9s cubic-bezier(.19,1,.22,1), opacity .9s cubic-bezier(.19,1,.22,1), transform .9s cubic-bezier(.19,1,.22,1);
+  &.visible { filter:blur(0); opacity:1; transform:translateY(0); }
 `;
 
 const Approach = () => {
-  const text = "Empowering businesses through innovative IT, technology, and AI solutions. As a consulting and development firm operating in Cyprus and Lebanon, we bridge European and MEA markets with tailored technological services — from custom IT consulting to website and application development, all designed to drive sustainable technological growth across regional boundaries.";
-  
-  const words = text.split(" ");
+  const text = '"We believe in the power of human-centered design and technological innovation. Based in Cyprus and Lebanon, we blend local expertise with global perspectives to create solutions that drive real business transformation."';
+  const words = text.split(' ');
+  const wordRefs = useRef([]);
+  const sectionRef = useRef(null);
+  const wordObserverRef = useRef(null);
 
-  const titleVariants = {
-    hidden: { 
-      opacity: 0,
-      y: 50
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    }
-  };
+  useEffect(() => {
+    // Observer to reveal words
+    wordObserverRef.current = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          wordObserverRef.current.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.03,
-      }
+    function observeAll() {
+      wordRefs.current.forEach(el => el && wordObserverRef.current.observe(el));
     }
-  };
+    observeAll();
 
-  const wordVariants = {
-    hidden: {
-      opacity: 0,
-      y: 10,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        ease: [0.25, 0.1, 0.25, 1]
+    // Scroll listener to reset when section fully out of view
+    const handleScroll = () => {
+      const el = sectionRef.current; if (!el) return; const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const fullyOut = r.bottom < 0 || r.top > vh; // completely above or below viewport
+      if (fullyOut) {
+        // reset words
+        wordRefs.current.forEach(w => { if (w) { w.classList.remove('visible'); } });
+        observeAll();
       }
-    }
-  };
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', handleScroll); wordObserverRef.current && wordObserverRef.current.disconnect(); };
+  }, []);
+
+  const titleVariants = { hidden:{opacity:0,y:50}, visible:{opacity:1,y:0,transition:{duration:.8,ease:[0.25,0.1,0.25,1]}} };
 
   return (
-    <ApproachContainer>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+    <ApproachContainer ref={sectionRef}>
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.2 }}>
         <motion.div variants={titleVariants}>
-          <SectionTitle>Our Approach</SectionTitle>
+          <SectionTitle>Our Philosophy</SectionTitle>
         </motion.div>
-
-        <QuoteText>
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.1 }}
-          >
-            {words.map((word, index) => (
-              <AnimatedWord
-                key={index}
-                variants={wordVariants}
-              >
-                {word}
-              </AnimatedWord>
-            ))}
-          </motion.div>
+        <QuoteText aria-label="Company philosophy statement">
+          {words.map((word, i) => (
+            <AnimatedWord key={i} ref={el => wordRefs.current[i] = el}>{word}</AnimatedWord>
+          ))}
         </QuoteText>
       </motion.div>
     </ApproachContainer>

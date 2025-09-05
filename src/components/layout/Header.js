@@ -31,6 +31,8 @@ const LogoLink = styled.a`
   &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:4px; border-radius:6px; }
 `;
 
+const LogoImg = styled.img`height:48px; width:auto; display:block; object-fit:contain; @media (max-width:${({ theme }) => theme.breakpoints.tablet}){height:42px;}`;
+
 const SimpleLogo = styled.span`
   position:relative; font-family:${({ theme }) => theme.fonts.primary};
   font-size:1.95rem; font-weight:700; letter-spacing:-0.028em; line-height:1; display:inline-flex; align-items:flex-end; gap:.4rem; color:${({ theme }) => theme.colors.secondary};
@@ -390,7 +392,8 @@ const Header = () => {
       <HeaderContainer $scrolled={scrolled} $hidden={hidden}>
         <Nav>
           <LogoLink href="#home" aria-label="Encelyte home">
-            <SimpleLogo><span className="word word--left">ence</span><span className="splitDot" aria-hidden="true" /> <span className="accent">lyte</span></SimpleLogo>
+            {/* Replaced text logo with image */}
+            <LogoImg src="/encelyte_logo.png" alt="Encelyte" loading="lazy" />
           </LogoLink>
           <HeaderButtons>
             <ToggleButton onClick={toggle}>{mode === 'light' ? 'Dark' : 'Light'} Mode</ToggleButton>

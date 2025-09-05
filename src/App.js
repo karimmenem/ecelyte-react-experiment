@@ -9,6 +9,7 @@ import Services from './components/sections/Services';
 import Recognition from './components/sections/Recognition';
 import BrandMarquee from './components/sections/BrandMarquee';
 import styled from 'styled-components';
+import Insights from './components/sections/Insights'; // added
 
 // Single subtle creative separator
 const Separator = styled.div`
@@ -40,6 +41,8 @@ function App() {
       <Hero />
       <Separator />
       <Approach />
+      <Separator />
+      <Insights /> {/* new live insights section */}
       <Separator />
       <TextMarquee />
       <Separator />

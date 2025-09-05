@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import TechMarquee from '../TechMarquee';
 
@@ -76,51 +76,43 @@ const DownArrow = styled(motion.div)`
   }
 `;
 
+const floatPulse = keyframes`0%{transform:translateY(0) scale(1);} 50%{transform:translateY(-8px) scale(1.04);} 100%{transform:translateY(0) scale(1);}`;
+const glow = keyframes`0%{opacity:.35;} 50%{opacity:.75;} 100%{opacity:.35;}`;
+
+const LogoImgHero = styled.img`height:54px; width:auto; display:block; object-fit:contain; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35));`;
+
+const ExpandLogo = styled.div`
+  position:relative; margin:0 auto 2.6rem; height:86px; width:86px; border-radius:28px; display:flex; align-items:center; justify-content:center; overflow:hidden; isolation:isolate;
+  background:linear-gradient(135deg, ${({ theme }) => theme.colors.secondary} 0%, ${({ theme }) => theme.colors.accent} 95%);
+  box-shadow:0 12px 32px -10px rgba(0,0,0,.4), 0 0 0 6px ${({ theme }) => theme.colors.accent}22, inset 0 0 0 1px ${({ theme }) => theme.colors.white}22;
+  animation:${floatPulse} 5.5s ease-in-out infinite;
+  &:before{content:''; position:absolute; inset:-25%; background:radial-gradient(circle at 50% 60%, ${({ theme }) => theme.colors.accent}55, transparent 70%); filter:blur(30px); z-index:-1; animation:${glow} 6s ease-in-out infinite;}
+  &:after{content:''; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(160deg,#ffffffaa,transparent 60%); mix-blend-mode:overlay; opacity:.35;}
+`;
+
+const Badge = styled.span`
+  flex:0 0 54px; height:54px; width:54px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:2.05rem; font-weight:700; letter-spacing:-0.04em; color:${({ theme }) => theme.colors.white}; background:linear-gradient(145deg, ${({ theme }) => theme.colors.secondary} 0%, ${({ theme }) => theme.colors.accent} 100%); box-shadow:0 6px 16px -6px rgba(0,0,0,.45), inset 0 0 0 1px ${({ theme }) => theme.colors.white}22; position:relative; z-index:2;
+`;
+
+const WordReveal = styled.div`display:none;`;
+
 const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const titleVariants = {
-    hidden: { 
-      opacity: 0,
-      y: 30
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    }
-  };
-
+  const containerVariants = { hidden:{opacity:0}, visible:{opacity:1, transition:{duration:1, staggerChildren:0.2}} };
+  const titleVariants = { hidden:{opacity:0,y:30}, visible:{opacity:1,y:0, transition:{duration:.8, ease:[0.25,0.1,0.25,1]}} };
   return (
     <HeroContainer id="home">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" style={{ width:'100%', display:'flex', flexDirection:'column', alignItems:'center' }}>
         <HeroContent>
+          <ExpandLogo aria-hidden="true">
+            <Badge style={{background:'transparent', boxShadow:'none', flex:'0 0 auto', width:'auto', height:'auto', borderRadius:0, padding:0}}>
+              <LogoImgHero src="/logo.png" alt="Encelyte logo" />
+            </Badge>
+          </ExpandLogo>
           <motion.div variants={titleVariants}>
-            <MainTitle>BRIDGING TECHNOLOGY<br />ACROSS EUROPE & MEA</MainTitle>
+            <MainTitle>CRAFTING DIGITAL<br />EXCELLENCE<br />WORLDWIDE</MainTitle>
           </motion.div>
-
           <motion.div variants={titleVariants}>
-            <Description>
-              Empowering businesses with innovative IT, technology, and AI 
-              solutions that bridge European and MEA markets.
-            </Description>
+            <Description>We transform ambitious ideas into powerful digital solutions, serving clients across Europe and the Middle East with cutting-edge technology and strategic innovation.</Description>
           </motion.div>
         </HeroContent>
 
