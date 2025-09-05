@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import TechMarquee from '../TechMarquee';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const HeroContainer = styled.section`
   min-height: 100vh;
@@ -97,6 +98,7 @@ const Badge = styled.span`
 const WordReveal = styled.div`display:none;`;
 
 const Hero = () => {
+  const { t } = useLanguage();
   const containerVariants = { hidden:{opacity:0}, visible:{opacity:1, transition:{duration:1, staggerChildren:0.2}} };
   const titleVariants = { hidden:{opacity:0,y:30}, visible:{opacity:1,y:0, transition:{duration:.8, ease:[0.25,0.1,0.25,1]}} };
   return (
@@ -109,16 +111,22 @@ const Hero = () => {
             </Badge>
           </ExpandLogo>
           <motion.div variants={titleVariants}>
-            <MainTitle>CRAFTING DIGITAL<br />EXCELLENCE<br />WORLDWIDE</MainTitle>
+            <MainTitle>{t('hero.title').split('\\n').map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                {i < t('hero.title').split('\\n').length - 1 && <br />}
+              </React.Fragment>
+            ))}</MainTitle>
           </motion.div>
           <motion.div variants={titleVariants}>
-            <Description>We transform ambitious ideas into powerful digital solutions, serving clients across Europe and the Middle East with cutting-edge technology and strategic innovation.</Description>
+            <Description>{t('hero.description')}</Description>
           </motion.div>
         </HeroContent>
 
-        <MarqueeSection>
+        {/* TechMarquee hidden */}
+        {/* <MarqueeSection>
           <TechMarquee />
-        </MarqueeSection>
+        </MarqueeSection> */}
 
         <DownArrow
           animate={{ y: [0, 10, 0] }}

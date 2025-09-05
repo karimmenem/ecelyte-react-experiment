@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import styled from 'styled-components';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Section = styled.section`
   background-color: ${({ theme }) => theme.colors.primary};
@@ -65,6 +66,7 @@ const CardSubtitle = styled.p`
 `;
 
 const Recognition = () => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -76,9 +78,9 @@ const Recognition = () => {
   const y = useTransform(scrollYProgress, [0, 0.3], [50, 0]);
 
   const recognitionData = [
-    { id: 1, title: 'Regional Excellence', subtitle: 'Leading IT Consulting Firm - Cyprus' },
-    { id: 2, title: 'Client Success', subtitle: '95% Client Satisfaction Rate' },
-    { id: 3, title: 'Technology Leadership', subtitle: 'AI Solutions Expert' }
+    { id: 1, title: t('recognition.items.1.title'), subtitle: t('recognition.items.1.subtitle') },
+    { id: 2, title: t('recognition.items.2.title'), subtitle: t('recognition.items.2.subtitle') },
+    { id: 3, title: t('recognition.items.3.title'), subtitle: t('recognition.items.3.subtitle') }
   ];
 
   const titleVariants = {
@@ -122,9 +124,9 @@ const Recognition = () => {
             marginBottom: '4rem',
           }}
         >
-          <TitleLabel variants={titleVariants}>Recognition</TitleLabel>
+          <TitleLabel variants={titleVariants}>{t('recognition.eyebrow')}</TitleLabel>
           <TitleHeading variants={titleVariants}>
-            Trusted technology partner across Europe and MEA regions
+            {t('recognition.title')}
           </TitleHeading>
         </motion.div>
       </motion.div>

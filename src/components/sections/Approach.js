@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const ApproachContainer = styled.section`
   padding: 8rem 2rem;
@@ -48,7 +49,8 @@ const AnimatedWord = styled.span`
 `;
 
 const Approach = () => {
-  const text = '"We believe in the power of human-centered design and technological innovation. Based in Cyprus and Lebanon, we blend local expertise with global perspectives to create solutions that drive real business transformation."';
+  const { t } = useLanguage();
+  const text = t('approach.quote');
   const words = text.split(' ');
   const wordRefs = useRef([]);
   const sectionRef = useRef(null);
@@ -91,7 +93,7 @@ const Approach = () => {
     <ApproachContainer ref={sectionRef}>
       <motion.div initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.2 }}>
         <motion.div variants={titleVariants}>
-          <SectionTitle>Our Philosophy</SectionTitle>
+          <SectionTitle>{t('approach.title')}</SectionTitle>
         </motion.div>
         <QuoteText aria-label="Company philosophy statement">
           {words.map((word, i) => (

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import styled, { useTheme } from 'styled-components';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const ServicesSection = styled.section`
   min-height: 100vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 6rem 2rem 8rem; transition: background 0.6s ease, color 0.4s ease;
@@ -88,6 +89,7 @@ const AllGridCard = styled.div`
 `;
 
 const Services = () => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const cardsContainerRef = useRef(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -100,10 +102,10 @@ const Services = () => {
   const titleVariants = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } } };
 
   const cardsData = [
-    { id: 1, title: 'IT & AI Solutions', tags: ['AI Solutions','IT Consulting','Technology Strategy','Digital Transformation','System Integration'], description: 'Encelyte developers are ready to implement visual aesthetics into code, adopting the latest technologies to ensure a cutting-edge result. We provide regular updates ensuring the final product surpasses expectations.' },
-    { id: 2, title: 'Strategic Consulting', tags: ['Business Strategy','Technology Planning','Process Optimization','Risk Assessment','Market Analysis'], description: 'Encelyte crafts strategies that resonate with brand essence. Blending creativity with strategic storytelling, we create interactions that are visually engaging and memorable.' },
-    { id: 3, title: 'Web & App Development', tags: ['Web Development','Mobile Apps','E-commerce','API Integration','Cloud Solutions'], description: 'We work collaboratively to build unified digital experiences ensuring every deliverable aligns with your objectives and user expectations.' },
-    { id: 4, title: 'Regional Market Access', tags: ['Europe Market Entry','MEA Expansion','Cross-Regional Strategy'], description: 'We enhance visibility through data-driven approaches—adapting quickly to trends to keep your brand competitive and impactful across regions.' }
+    { id: 1, title: t('services.cards.1.title'), tags: t('services.cards.1.tags'), description: t('services.cards.1.desc') },
+    { id: 2, title: t('services.cards.2.title'), tags: t('services.cards.2.tags'), description: t('services.cards.2.desc') },
+    { id: 3, title: t('services.cards.3.title'), tags: t('services.cards.3.tags'), description: t('services.cards.3.desc') },
+    { id: 4, title: t('services.cards.4.title'), tags: t('services.cards.4.tags'), description: t('services.cards.4.desc') }
   ];
 
   // Dynamic card color schemes (mode aware)
@@ -175,8 +177,8 @@ const Services = () => {
       <SectionDivider />
       <SectionHeader>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={titleVariants}>
-          <SectionEyebrow variants={titleVariants}>Services</SectionEyebrow>
-          <SectionTitle variants={titleVariants}>Delivering innovative IT solutions across regional markets</SectionTitle>
+          <SectionEyebrow variants={titleVariants}>{t('services.eyebrow')}</SectionEyebrow>
+          <SectionTitle variants={titleVariants}>{t('services.title')}</SectionTitle>
         </motion.div>
       </SectionHeader>
 
@@ -244,7 +246,7 @@ const Services = () => {
       </Indicators>
 
       <ToggleAllButton type="button" onClick={() => { setShowAll(s => !s); setShowHint(false); }} aria-expanded={showAll} aria-controls="all-services-grid">
-        {showAll ? 'Collapse view' : 'View all services'}
+        {showAll ? t('services.toggleAllClose') : t('services.toggleAllOpen')}
         <span style={{ fontSize: '1rem', lineHeight: 1 }}>↕</span>
       </ToggleAllButton>
 

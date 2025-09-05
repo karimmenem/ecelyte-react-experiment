@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useThemeMode } from './Layout';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const HeaderContainer = styled.header`
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000; isolation:isolate;
@@ -224,6 +225,7 @@ const Header = () => {
   const lastY = React.useRef(0);
   const ticking = React.useRef(false);
   const { mode, toggle, theme } = useThemeMode();
+  const { toggleLanguage, langCode, t } = useLanguage();
 
   useEffect(() => {
     const handle = () => {
@@ -276,8 +278,11 @@ const Header = () => {
               <TinyIcon $active={mode === 'dark'}><MoonIcon /></TinyIcon>
               <ToggleThumb>{mode==='dark'? <MoonIcon /> : <SunIcon />}</ToggleThumb>
             </ThemeToggle>
-            <CTAButton onClick={() => setIsContactOpen(true)}>Let's Build Together!</CTAButton>
-            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>Menu</MenuButton>
+            <ToggleButton onClick={toggleLanguage} aria-label={t('langToggle.aria')} style={{minWidth:54}}>
+              {langCode === 'en' ? t('langToggle.ar') : t('langToggle.en')}
+            </ToggleButton>
+            <CTAButton onClick={() => setIsContactOpen(true)}>{t('header.cta')}</CTAButton>
+            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>{t('header.menu')}</MenuButton>
           </HeaderButtons>
         </Nav>
       </HeaderContainer>
@@ -294,18 +299,18 @@ const Header = () => {
               <MenuLogo src="/logo.png" alt="Encelyte logo" loading="lazy" />
               <div style={{display:'flex', flexDirection:'column', lineHeight:1}}>
                 <span style={{fontSize:'.7rem', letterSpacing:'.18em', textTransform:'uppercase', opacity:.55}}>Encelyte</span>
-                <span style={{fontSize:'.85rem', fontWeight:500, opacity:.85}}>Technology & AI</span>
+                <span style={{fontSize:'.85rem', fontWeight:500, opacity:.85}}>{t('header.technologyAI')}</span>
               </div>
             </div>
-            <MenuClose onClick={toggleMenu}>Close</MenuClose>
+            <MenuClose onClick={toggleMenu}>{t('header.close')}</MenuClose>
           </MenuTop>
           <MenuLinks>
-            <MenuLink href="#home" onClick={toggleMenu}>Home</MenuLink>
-            <MenuLink href="#services" onClick={toggleMenu}>Services</MenuLink>
-            <MenuLink href="#/admin/login" className="small" onClick={toggleMenu}>Admin</MenuLink>
-            <MenuLink href="#/careers" className="small" onClick={toggleMenu}>Careers</MenuLink>
+            <MenuLink href="#home" onClick={toggleMenu}>{t('header.home')}</MenuLink>
+            <MenuLink href="#services" onClick={toggleMenu}>{t('header.services')}</MenuLink>
+            <MenuLink href="#/admin/login" className="small" onClick={toggleMenu}>{t('header.admin')}</MenuLink>
+            <MenuLink href="#/careers" className="small" onClick={toggleMenu}>{t('header.careers')}</MenuLink>
             <div style={{marginTop:'auto', paddingTop:'1.1rem', borderTop:`1px solid ${theme.colors.borderAlt}33`}}>
-              <div style={{fontSize:'.58rem', letterSpacing:'.18em', textTransform:'uppercase', opacity:.45, marginBottom:'.55rem'}}>Connect</div>
+              <div style={{fontSize:'.58rem', letterSpacing:'.18em', textTransform:'uppercase', opacity:.45, marginBottom:'.55rem'}}>{t('header.connect')}</div>
               <SocialGrid style={{gap:'.65rem'}}>
                 <SocialLink href="https://www.linkedin.com/company/encelyte" target="_blank" rel="noopener noreferrer">LinkedIn</SocialLink>
                 <SocialLink href="https://www.instagram.com/encelyte/" target="_blank" rel="noopener noreferrer">Instagram</SocialLink>
@@ -334,43 +339,43 @@ const Header = () => {
             transition={{ duration: 0.4, ease: 'easeInOut' }}
           >
             <ContactHeader>
-              <h2>Contact</h2>
-              <PillButton onClick={toggleContact}>Close</PillButton>
+              <h2>{t('contact.title')}</h2>
+              <PillButton onClick={toggleContact}>{t('header.close')}</PillButton>
             </ContactHeader>
             <div style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize:'1.55rem', fontWeight:500, margin:0, lineHeight:1.25 }}>{"Have a project you'd like to talk about?"}</h3>
+              <h3 style={{ fontSize:'1.55rem', fontWeight:500, margin:0, lineHeight:1.25 }}>{t('contact.headline')}</h3>
             </div>
             <EmailRow>
               <span>contact</span><span className="symbol">@</span><span>encelyte.com</span>
             </EmailRow>
             <div style={{ display:'flex', gap:'1rem', marginBottom:'2rem', flexWrap:'wrap' }}>
-              <CTAAction href="https://wa.me/35796733800" target="_blank" rel="noopener noreferrer">WhatsApp</CTAAction>
-              <CTASecondary>Book a call</CTASecondary>
+              <CTAAction href="https://wa.me/35796733800" target="_blank" rel="noopener noreferrer">{t('contact.whatsapp')}</CTAAction>
+              <CTASecondary>{t('contact.bookCall')}</CTASecondary>
             </div>
             <MetaBlock>
-              <div>Nicosia, Cyprus</div>
-              <div>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} Local</div>
+              <div>{t('contact.location')}</div>
+              <div>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {t('contact.local')}</div>
             </MetaBlock>
             <form style={{ display:'flex', flexDirection:'column', gap:'1.25rem', flex:1 }}>
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                 <div>
-                  <Label htmlFor="contact-name">What is your name?</Label>
-                  <Input id="contact-name" type="text" placeholder="Your Name" />
+                  <Label htmlFor="contact-name">{t('contact.nameQ')}</Label>
+                  <Input id="contact-name" type="text" placeholder={t('contact.nameQ')} />
                 </div>
                 <div>
-                  <Label htmlFor="contact-email">What is your email?</Label>
-                  <Input id="contact-email" type="email" placeholder="Email" />
+                  <Label htmlFor="contact-email">{t('contact.emailQ')}</Label>
+                  <Input id="contact-email" type="email" placeholder={t('contact.emailQ')} />
                 </div>
               </div>
               <div>
-                <Label htmlFor="contact-company">What is the name of your company/organisation?</Label>
-                <Input id="contact-company" type="text" placeholder="Company / Organisation" />
+                <Label htmlFor="contact-company">{t('contact.companyQ')}</Label>
+                <Input id="contact-company" type="text" placeholder={t('contact.companyQ')} />
               </div>
               <div>
-                <Label htmlFor="contact-message">Tell us a bit more about your project</Label>
-                <TextArea id="contact-message" rows={4} placeholder="Briefly describe the chosen service" />
+                <Label htmlFor="contact-message">{t('contact.messageQ')}</Label>
+                <TextArea id="contact-message" rows={4} placeholder={t('contact.messageQ')} />
               </div>
-              <SubmitButton type="submit">Send message</SubmitButton>
+              <SubmitButton type="submit">{t('contact.send')}</SubmitButton>
             </form>
           </ContactPanel>
         </>

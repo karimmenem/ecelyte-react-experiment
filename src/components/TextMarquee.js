@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const MarqueeSection = styled.section`
   width: 100vw;
@@ -110,8 +111,9 @@ const Separator = styled.span`
 `;
 
 const TextMarquee = () => {
-  const rightTextArray = Array(10).fill('EXPLORE OUR WORK');
-  const leftTextArray = Array(10).fill('BOLD SOLUTIONS!');
+  const { t } = useLanguage();
+  const rightTextArray = Array(10).fill(t('marquee.rightText'));
+  const leftTextArray = Array(10).fill(t('marquee.leftText'));
 
   return (
     <MarqueeSection>

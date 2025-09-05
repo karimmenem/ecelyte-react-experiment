@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { getInsights, subscribe } from '../../utils/insightsStore';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Section = styled.section`
   width:100%; position:relative; padding:clamp(3.2rem,6vw,6rem) 0 clamp(3rem,6vw,5.2rem);
@@ -64,6 +65,7 @@ const Description = styled.p`margin:.2rem 0 0; font-size:.7rem; letter-spacing:.
 const Empty = styled.div`padding:2.5rem 1.5rem; text-align:center; border:2px dashed ${({ theme }) => theme.colors.border}; border-radius:1rem; font-size:.85rem; opacity:.65;`;
 
 const Insights = () => {
+  const { t } = useLanguage();
   const [items, setItems] = useState(getInsights());
   const [displayValues, setDisplayValues] = useState(() => Object.fromEntries(getInsights().map(i => [i.id, 0])));
   const [inView, setInView] = useState(false);
@@ -130,8 +132,8 @@ const Insights = () => {
       <Shell>
         <Inner>
           <Header>
-            <Title>Live Insights</Title>
-            <Subtitle>Key impact metrics updating in real time as the team progresses. (Demo animation – backend forthcoming)</Subtitle>
+            <Title>{t('insights.title')}</Title>
+            <Subtitle>{t('insights.subtitle')}</Subtitle>
           </Header>
         </Inner>
         {items.length ? (
@@ -142,17 +144,17 @@ const Insights = () => {
                 index={i}
                 role="button"
                 tabIndex={0}
-                aria-label={`Replay count for ${ins.label}`}
+                aria-label={`Replay count for ${t(ins.labelKey)}`}
                 onClick={() => replay(ins.id, ins.value)}
                 onKeyDown={(e)=>onKey(e, ins.id, ins.value)}
                 data-replay={replaySet.has(ins.id)}
               >
-                <Label>{ins.label}</Label>
+                <Label>{t(ins.labelKey)}</Label>
                 <ValueRow>
                   <Value aria-label={`${displayValues[ins.id]} ${ins.suffix}`}>{displayValues[ins.id] ?? 0}</Value>
                   {ins.suffix && <Suffix>{ins.suffix}</Suffix>}
                 </ValueRow>
-                <Description>{ins.description}</Description>
+                <Description>{t(ins.descriptionKey)}</Description>
               </Card>
             ))}
           </Grid>

@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { theme as baseTheme, createTheme } from '../../styles/theme';
 import Header from './Header';
 import Footer from './Footer';
+import { LanguageProvider } from '../../contexts/LanguageContext';
 
 export const ThemeModeContext = createContext({ mode: 'light', toggle: () => {}, theme: baseTheme });
 
@@ -24,13 +25,15 @@ const Layout = ({ children }) => {
   return (
     <ThemeModeContext.Provider value={{ mode, toggle, theme: activeTheme }}>
       <ThemeProvider theme={activeTheme}>
-        <LayoutContainer>
-          <Header />
-          <MainContent>
-            {children}
-          </MainContent>
-          <Footer />
-        </LayoutContainer>
+        <LanguageProvider>
+          <LayoutContainer>
+            <Header />
+            <MainContent>
+              {children}
+            </MainContent>
+            <Footer />
+          </LayoutContainer>
+        </LanguageProvider>
       </ThemeProvider>
     </ThemeModeContext.Provider>
   );

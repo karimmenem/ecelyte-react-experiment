@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const FooterWrapper = styled.footer`
   position: relative; width:100%;
@@ -81,6 +82,7 @@ const PolicyLink = styled.a`
 `;
 
 const Footer = () => {
+  const { t } = useLanguage();
   return (
     <FooterWrapper>
       <Inner>
@@ -92,21 +94,21 @@ const Footer = () => {
         </SocialRow>
         <CTACluster>
           <CTALeft>
-            <Headline>Curious how Encelyte can help?</Headline>
+            <Headline>{t('footer.headline')}</Headline>
             <MailLink href="mailto:contact@encelyte.com"><span>contact</span><span style={{opacity:.65}}>@</span><span>encelyte.com</span></MailLink>
           </CTALeft>
           <QuickLinks aria-label="Quick navigation">
-            <QuickLink href="#home">Home</QuickLink>
-            <QuickLink href="#services">Services</QuickLink>
-            <QuickLink href="mailto:contact@encelyte.com">Contact</QuickLink>
-            <QuickLink href="#/terms">Terms of Use</QuickLink>
-            <QuickLink href="#/privacy">Privacy Policy</QuickLink>
+            <QuickLink href="#home">{t('footer.quick.home')}</QuickLink>
+            <QuickLink href="#services">{t('footer.quick.services')}</QuickLink>
+            <QuickLink href="mailto:contact@encelyte.com">{t('footer.quick.contact')}</QuickLink>
+            <QuickLink href="#/terms">{t('footer.quick.terms')}</QuickLink>
+            <QuickLink href="#/privacy">{t('footer.quick.privacy')}</QuickLink>
           </QuickLinks>
         </CTACluster>
         <Divider>
-          <Legal>Encelyte, LLC © 2025. All rights reserved.</Legal>
-          <PolicyLink href="#/terms" style={{justifySelf:'center'}}>Terms of Use</PolicyLink>
-          <PolicyLink href="#/privacy" style={{justifySelf:'end'}}>Privacy Policy</PolicyLink>
+          <Legal>{t('footer.legal')}</Legal>
+          <PolicyLink href="#/terms" style={{justifySelf:'center'}}>{t('footer.terms')}</PolicyLink>
+          <PolicyLink href="#/privacy" style={{justifySelf:'end'}}>{t('footer.privacy')}</PolicyLink>
         </Divider>
       </Inner>
     </FooterWrapper>

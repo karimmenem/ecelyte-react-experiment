@@ -1,7 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import './styles/globals.css';
-import Layout from './components/layout/Layout';
 import Hero from './components/sections/Hero';
 import Approach from './components/sections/Approach';
 import TextMarquee from './components/TextMarquee';
@@ -35,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <Layout>
+    <>
       <GlobalStyle />
       <Hero />
       <Separator />
@@ -49,7 +48,7 @@ function App() {
       <Separator />
       <Recognition />
       {/* Removed brand marquee and trailing separator */}
-    </Layout>
+    </>
   );
 }
 
