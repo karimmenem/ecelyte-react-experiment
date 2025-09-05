@@ -20,7 +20,13 @@ const palette = {
   sand: '#aca48b',
   success: '#1cb39b',
   successAlt: '#35c36b',
-  tealBorder: '#77d7c8'
+  tealBorder: '#77d7c8',
+  // added lighter variants for dark mode refinement
+  darkPrimarySoft: '#06385d', // lighter than #002d4b for dark backgrounds
+  darkPrimaryDeeper: '#042a46',
+  darkPanel: '#0e3d63',
+  darkPanelAlt: '#082d48',
+  darkBorder: '#1a577a'
 };
 
 // Replace previous lightColors / darkColors with refined brand palette
@@ -54,8 +60,8 @@ const lightColors = {
 };
 
 const darkColors = {
-  primary: palette.navy,                // page background (inverted)
-  secondary: palette.white,             // headings / primary text
+  primary: palette.darkPrimarySoft,                // lighter primary background
+  secondary: palette.white,
   accent: palette.blueMid,
   text: palette.white,
   textDark: palette.white,
@@ -63,11 +69,11 @@ const darkColors = {
   textLight: '#aebcc3',
   success: palette.success,
   successAlt: palette.successAlt,
-  panel: palette.darkAlt,               // elevated surface
-  panelAlt: palette.neutralDark,
-  backgroundLight: palette.darkAlt,
-  backgroundDark: palette.neutralDark,
-  border: '#133449',
+  panel: palette.darkPanel,               // elevated surface (lightened)
+  panelAlt: palette.darkPanelAlt,
+  backgroundLight: palette.darkPanel,
+  backgroundDark: palette.darkPrimaryDeeper,
+  border: palette.darkBorder,
   borderAlt: palette.tealBorder,
   selectionBg: palette.neutralMid,
   selectionText: palette.navy,

@@ -4,17 +4,31 @@ import { motion } from 'framer-motion';
 import { useThemeMode } from './Layout';
 
 const HeaderContainer = styled.header`
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000; isolation:isolate;
   padding: ${({ $scrolled }) => ($scrolled ? '0.7rem 2rem' : '1.15rem 2rem')};
-  display: flex; justify-content: center; transition: background .4s ease, padding .35s ease, box-shadow .4s ease, backdrop-filter .4s ease, border-color .4s ease, transform .5s ease;
-  background: ${({ theme, $scrolled }) => $scrolled
-    ? (theme.mode === 'dark' ? 'rgba(0,18,32,0.76)' : 'rgba(255,255,255,0.86)')
-    : (theme.mode === 'dark' ? 'rgba(0,18,32,0.4)' : 'rgba(255,255,255,0.5)')};
-  backdrop-filter: blur(${({ $scrolled }) => ($scrolled ? 18 : 10)}px) saturate(170%);
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderAlt}33;
-  box-shadow: ${({ $scrolled }) => $scrolled ? '0 4px 26px -8px rgba(0,0,0,0.35)' : '0 1px 5px -2px rgba(0,0,0,0.15)'};
+  display: flex; justify-content: center; transition: background .45s ease, padding .35s ease, box-shadow .45s ease, backdrop-filter .45s ease, border-color .45s ease, transform .5s ease;
+  /* Dark mode: intentionally deeper than hero (#06385d) for clear logo contrast */
+  background: ${({ theme, $scrolled }) => {
+    if (theme.mode === 'dark') {
+      return $scrolled
+        ? 'linear-gradient(145deg, rgba(3,24,40,0.95) 0%, rgba(3,32,52,0.94) 55%, rgba(4,40,64,0.94) 100%)'
+        : 'linear-gradient(145deg, rgba(3,28,46,0.90) 0%, rgba(4,38,62,0.88) 55%, rgba(5,48,78,0.85) 100%)';
+    }
+    return $scrolled ? 'rgba(255,255,255,0.86)' : 'rgba(255,255,255,0.55)';
+  }};
+  backdrop-filter: blur(${({ $scrolled }) => ($scrolled ? 18 : 16)}px) saturate(175%);
+  border-bottom: 1px solid ${({ theme }) => theme.mode==='dark' ? theme.colors.borderAlt + '55' : theme.colors.borderAlt + '33'};
+  box-shadow: ${({ $scrolled, theme }) => $scrolled
+    ? (theme.mode==='dark'
+        ? '0 10px 26px -14px rgba(0,0,0,0.7), 0 2px 10px -6px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset'
+        : '0 4px 26px -8px rgba(0,0,0,0.18)')
+    : (theme.mode==='dark'
+        ? '0 5px 18px -12px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.035) inset'
+        : '0 1px 5px -2px rgba(0,0,0,0.15)')};
   transform: translateY(${({ $hidden }) => $hidden ? '-110%' : '0'});
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) { padding: .9rem 1rem; }
+  &:before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(circle at 140px 60%, rgba(255,255,255,0.08), transparent 65%); mix-blend-mode:overlay; opacity:${({ $scrolled }) => $scrolled ? .7 : .55}; transition:opacity .45s ease; }
+  &:after { content:''; position:absolute; left:0; right:0; bottom:0; height:1px; pointer-events:none; background:linear-gradient(90deg, transparent, ${({ theme }) => theme.colors.borderAlt}AA, transparent); opacity:${({ $scrolled }) => $scrolled ? .85 : .5}; transition:opacity .45s ease; }
 `;
 
 const Nav = styled.nav`

@@ -100,12 +100,13 @@ const Footer = () => {
             <QuickLink href="#services">Services</QuickLink>
             <QuickLink href="mailto:contact@encelyte.com">Contact</QuickLink>
             <QuickLink href="#/terms">Terms of Use</QuickLink>
+            <QuickLink href="#/privacy">Privacy Policy</QuickLink>
           </QuickLinks>
         </CTACluster>
         <Divider>
           <Legal>Encelyte, LLC © 2025. All rights reserved.</Legal>
           <PolicyLink href="#/terms" style={{justifySelf:'center'}}>Terms of Use</PolicyLink>
-          <PolicyLink href="/privacy" style={{justifySelf:'end'}}>Privacy Policy</PolicyLink>
+          <PolicyLink href="#/privacy" style={{justifySelf:'end'}}>Privacy Policy</PolicyLink>
         </Divider>
       </Inner>
     </FooterWrapper>

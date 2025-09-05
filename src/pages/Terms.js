@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   min-height:100vh; background:${({ theme }) => theme.colors.primary}; color:${({ theme }) => theme.colors.text};
-  padding:7.5rem clamp(1.2rem,4vw,3rem) 4rem; line-height:1.65; transition:background .4s ease, color .4s ease; position:relative;
+  padding:6.5rem clamp(1.2rem,4vw,3rem) 4rem; line-height:1.65; transition:background .4s ease, color .4s ease; position:relative;
   max-width: 1100px; margin:0 auto; font-size:clamp(.9rem,1rem + .2vw,1.05rem);
 `;
 
@@ -13,11 +13,11 @@ const Heading = styled.h2`margin:0 0 .85rem; font-size:clamp(1.15rem,2.2vw,1.55r
 const Sub = styled.h3`margin:2rem 0 .75rem; font-size:1rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; opacity:.8; color:${({ theme }) => theme.colors.textMedium};`;
 const Paragraph = styled.p`margin:.75rem 0;`;
 const List = styled.ul`margin:.5rem 0 1rem 1.25rem; padding:0; list-style:disc; li{margin:.4rem 0;}`;
-const BackLink = styled.a`position:fixed; top:1rem; left:1rem; background:${({ theme }) => theme.colors.secondary}; color:${({ theme }) => theme.colors.primary}; text-decoration:none; padding:.55rem .9rem; border-radius:.55rem; font-size:.7rem; font-weight:600; letter-spacing:.05em; box-shadow:0 4px 16px -6px rgba(0,0,0,.35); transition:background .35s ease, transform .35s ease; &:hover{background:${({ theme }) => theme.colors.accent}; transform:translateY(-2px);} &:focus-visible{outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:3px;}`;
+const BackLink = styled.a``; // deprecated (kept minimal to avoid removal warnings)
 
 const Terms = () => (
   <Wrapper id="terms">
-    <BackLink href="#home">← Back</BackLink>
+    {/* BackLink removed - header persists */}
     <Title>Terms and Conditions</Title>
 
     <Article>
