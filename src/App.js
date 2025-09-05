@@ -7,7 +7,6 @@ import Approach from './components/sections/Approach';
 import TextMarquee from './components/TextMarquee';
 import Services from './components/sections/Services';
 import Recognition from './components/sections/Recognition';
-import BrandMarquee from './components/sections/BrandMarquee';
 import styled from 'styled-components';
 import Insights from './components/sections/Insights'; // added
 
@@ -49,8 +48,7 @@ function App() {
       <Services />
       <Separator />
       <Recognition />
-      <Separator />
-      <BrandMarquee />
+      {/* Removed brand marquee and trailing separator */}
     </Layout>
   );
 }

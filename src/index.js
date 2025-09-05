@@ -4,6 +4,7 @@ import App from './App';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import Careers from './pages/Careers';
+import Terms from './pages/Terms'; // added
 import { createTheme } from './styles/theme';
 import { ThemeProvider } from 'styled-components';
 
@@ -36,6 +37,13 @@ const AppRouter = () => {
     return (
       <ThemeProvider theme={theme}>
         <Careers />
+      </ThemeProvider>
+    );
+  }
+  if (hash === '#/terms') {
+    return (
+      <ThemeProvider theme={theme}>
+        <Terms />
       </ThemeProvider>
     );
   }
