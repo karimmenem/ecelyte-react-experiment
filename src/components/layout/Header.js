@@ -200,20 +200,15 @@ const ThemeToggle = styled.button`
   &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:3px; }
   @media (max-width: 768px) { width:52px; height:28px; }
   @media (max-width: 480px) {
-    width: 32px; height: 32px; padding: 0; border: none; border-radius: 8px; justify-content: center; 
-    background: none !important; box-shadow: none !important; overflow: visible;
-    &:hover { box-shadow: none !important; background: none !important; }
-    &:focus-visible { outline: 2px solid ${({ theme }) => theme.colors.accent}; outline-offset: 2px; }
+    width: 36px; height: 36px; padding: 0; border: none; border-radius: 12px; justify-content: center; background: transparent; box-shadow: none;
+    &:hover { box-shadow: none; }
   }
 `;
-// Used only on phones - shows single icon based on current mode
+// Used only on phones
 const OnlyMobileIcon = styled.span`
-  display:none; 
+  display:none; color:${({ theme }) => theme.mode==='dark' ? theme.colors.white : theme.colors.secondary};
   @media (max-width:480px){
-    display:inline-flex; align-items:center; justify-content:center; 
-    width:24px; height:24px; 
-    color:${({ theme }) => theme.mode==='dark' ? theme.colors.white : theme.colors.secondary}; 
-    svg{width:22px; height:22px;}
+    display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; svg{width:20px; height:20px;}
   }
 `;
 const ToggleThumb = styled.span`
@@ -222,13 +217,13 @@ const ToggleThumb = styled.span`
     width:22px; height:22px; top:3px; left:3px; transform:translateX(${({ theme }) => theme.mode==='dark' ? '24px' : '0'});
   }
   @media (max-width: 480px) {
-    display:none !important; /* completely hide thumb on phones */
+    display:none; /* hide thumb entirely on phones */
   }
 `;
 const TinyIcon = styled.span`
   width:14px; height:14px; display:inline-flex; align-items:center; justify-content:center; color:${({ theme }) => theme.mode==='dark'? theme.colors.white : theme.colors.secondary}; opacity:${({ $active }) => $active ? 1 : .35}; transform:scale(${({ $active }) => $active ? 1 : .82}); transition:opacity .45s ease, transform .45s ease; pointer-events:none; svg{display:block;}
   @media (max-width: 768px) { width:12px; height:12px; }
-  @media (max-width: 480px) { display:none !important; /* completely hide switch icons on phones */ }
+  @media (max-width: 480px) { display:none; }
 `;
 
 // Re-added icon components
