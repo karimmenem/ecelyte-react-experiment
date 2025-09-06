@@ -32,8 +32,8 @@ const translations = {
       }
     },
     insights: {
-      title: 'Live Insights',
-      subtitle: 'Key impact metrics updating in real time as the team progresses. (Demo animation – backend forthcoming)',
+      title: 'Real-Time Performance',
+      subtitle: 'Live metrics showcasing our impact across projects and client outcomes. These numbers reflect our commitment to delivering measurable results in technology innovation and strategic growth.',
       labels: { impact: 'Client Impact', growth: 'Avg Growth', retention: 'Retention', deploys: 'Deploys' },
       descriptions: { impact: 'Successful launches', growth: 'Average uplift', retention: 'Client retention', deploys: 'Production deploys' }
     },

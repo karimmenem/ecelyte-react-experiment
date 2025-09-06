@@ -46,10 +46,9 @@ const Inner = styled.div`
 `;
 
 const Header = styled.div`
-  display:flex; flex-direction:column; gap:.9rem;
+  display:flex; flex-direction:column; gap:.9rem; text-align: center; align-items: center;
   
   @media (max-width: 768px) {
-    text-align: center;
     gap: .7rem;
   }
   
@@ -71,16 +70,15 @@ const Title = styled.h2`
 `;
 
 const Subtitle = styled.p`
-  margin:0; max-width:720px; font-size:clamp(.8rem,1.15vw,1.05rem); line-height:1.55; color:${({ theme }) => theme.colors.textMedium};
+  margin:0; max-width:800px; font-size:clamp(.85rem,1.15vw,1.1rem); line-height:1.6; color:${({ theme }) => theme.colors.textMedium}; text-align: center;
   
   @media (max-width: 768px) {
-    font-size: clamp(.85rem, 1.2vw, 1rem);
-    margin: 0 auto;
-    max-width: 600px;
+    font-size: clamp(.9rem, 1.2vw, 1.05rem);
+    max-width: 650px;
   }
   
   @media (max-width: 480px) {
-    font-size: clamp(.8rem, 1.5vw, .95rem);
+    font-size: clamp(.85rem, 1.5vw, 1rem);
     max-width: 100%;
   }
 `;
