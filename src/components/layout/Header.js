@@ -28,6 +28,7 @@ const HeaderContainer = styled.header`
         : '0 1px 5px -2px rgba(0,0,0,0.15)')};
   transform: translateY(${({ $hidden }) => $hidden ? '-110%' : '0'});
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) { padding: .9rem 1rem; }
+  @media (max-width: 480px) { padding: .65rem .75rem; }
   &:before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(circle at 140px 60%, rgba(255,255,255,0.08), transparent 65%); mix-blend-mode:overlay; opacity:${({ $scrolled }) => $scrolled ? .7 : .55}; transition:opacity .45s ease; }
   &:after { content:''; position:absolute; left:0; right:0; bottom:0; height:1px; pointer-events:none; background:linear-gradient(90deg, transparent, ${({ theme }) => theme.colors.borderAlt}AA, transparent); opacity:${({ $scrolled }) => $scrolled ? .85 : .5}; transition:opacity .45s ease; }
 `;
@@ -46,7 +47,7 @@ const LogoLink = styled.a`
   &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:4px; border-radius:6px; }
 `;
 
-const LogoImg = styled.img`height:48px; width:auto; display:block; object-fit:contain; @media (max-width:${({ theme }) => theme.breakpoints.tablet}){height:42px;}`;
+const LogoImg = styled.img`height:48px; width:auto; display:block; object-fit:contain; @media (max-width:${({ theme }) => theme.breakpoints.tablet}){height:42px;} @media (max-width:480px){height:36px;}`;
 
 const SimpleLogo = styled.span`
   position:relative; font-family:${({ theme }) => theme.fonts.primary};
@@ -60,6 +61,21 @@ const SimpleLogo = styled.span`
 
 const HeaderButtons = styled.div`
   display:flex; align-items:center; gap:2.2rem; margin-left:3.5rem;
+  
+  @media (max-width: 768px) {
+    gap: 1.1rem;
+    margin-left: 1.25rem;
+  }
+  
+  @media (max-width: 640px) {
+    gap: .6rem;
+    margin-left: .5rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: .5rem;
+    margin-left: .4rem;
+  }
 `;
 
 const CTAButton = styled.button`
@@ -81,6 +97,7 @@ const CTAButton = styled.button`
   gap:.55rem;
   transition: background .4s ease, transform .35s ease, box-shadow .4s ease;
   box-shadow: 0 6px 18px -6px rgba(0,0,0,0.35), 0 0 0 1px ${({ theme }) => theme.colors.borderAlt}44 inset;
+  min-width: 0; /* allow flex shrinking on small screens */
   &:before {
     content:'';
     position:absolute;
@@ -100,8 +117,25 @@ const CTAButton = styled.button`
     outline:2px solid ${({ theme }) => theme.colors.accent};
     outline-offset:3px;
   }
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display:none;
+  @media (max-width: 768px) {
+    padding: .7rem 1.1rem;
+    font-size: .72rem;
+  }
+  @media (max-width: 640px) {
+    /* keep CTA visible but make it compact and flexible */
+    flex: 1 1 clamp(150px, 44vw, 260px);
+    padding: .58rem .8rem;
+    font-size: .68rem;
+    line-height: 1.15;
+    border-radius: 12px;
+    text-align: center;
+    white-space: normal; /* allow two-line label if needed */
+  }
+  @media (max-width: 380px) {
+    flex-basis: clamp(140px, 50vw, 210px);
+    padding: .5rem .7rem;
+    font-size: .62rem;
+    letter-spacing: .05em;
   }
 `;
 
@@ -128,6 +162,8 @@ const MenuButton = styled.button`
     outline:2px solid ${({ theme }) => theme.colors.accent};
     outline-offset:3px;
   }
+  @media (max-width: 768px) { padding:.6rem .95rem; font-size:.72rem; }
+  @media (max-width: 480px) { padding:.5rem .85rem; font-size:.68rem; }
 `;
 
 const ToggleButton = styled.button`
@@ -147,7 +183,14 @@ const ToggleButton = styled.button`
   gap:.4rem;
   &:hover { background: ${({ theme }) => theme.mode === 'dark' ? 'rgba(255,255,255,0.16)' : 'rgba(0,45,75,0.14)'}; transform: translateY(-2px); }
   &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:3px; }
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) { display:none; }
+  @media (max-width: 768px) {
+    padding: .48rem .52rem;
+    font-size: .65rem;
+  }
+  @media (max-width: 480px) {
+    padding: .44rem .48rem;
+    font-size: .6rem;
+  }
 `;
 
 // New theme toggle switch styles
@@ -155,12 +198,37 @@ const ThemeToggle = styled.button`
   position:relative; width:60px; height:32px; border-radius:22px; cursor:pointer; display:inline-flex; align-items:center; justify-content:space-between; padding:0 8px; overflow:hidden; border:1px solid ${({ theme }) => theme.colors.borderAlt}55; background:${({ theme }) => theme.mode==='dark' ? 'linear-gradient(135deg,#071725,#0f2c42)' : 'linear-gradient(135deg,#e8f1f8,#ffffff)'}; transition:background .5s ease, border-color .5s ease, box-shadow .5s ease; box-shadow:0 4px 10px -4px rgba(0,0,0,.25), 0 0 0 1px ${({ theme }) => theme.colors.borderAlt}33 inset; isolation:isolate;
   &:hover { box-shadow:0 6px 16px -4px rgba(0,0,0,.35), 0 0 0 1px ${({ theme }) => theme.colors.borderAlt}55 inset; }
   &:focus-visible { outline:2px solid ${({ theme }) => theme.colors.accent}; outline-offset:3px; }
+  @media (max-width: 768px) { width:52px; height:28px; }
+  @media (max-width: 480px) {
+    width: 32px; height: 32px; padding: 0; border: none; border-radius: 8px; justify-content: center; 
+    background: none !important; box-shadow: none !important; overflow: visible;
+    &:hover { box-shadow: none !important; background: none !important; }
+    &:focus-visible { outline: 2px solid ${({ theme }) => theme.colors.accent}; outline-offset: 2px; }
+  }
+`;
+// Used only on phones - shows single icon based on current mode
+const OnlyMobileIcon = styled.span`
+  display:none; 
+  @media (max-width:480px){
+    display:inline-flex; align-items:center; justify-content:center; 
+    width:24px; height:24px; 
+    color:${({ theme }) => theme.mode==='dark' ? theme.colors.white : theme.colors.secondary}; 
+    svg{width:22px; height:22px;}
+  }
 `;
 const ToggleThumb = styled.span`
   position:absolute; top:3px; left:3px; width:26px; height:26px; border-radius:50%; background:${({ theme }) => theme.mode==='dark' ? 'linear-gradient(135deg,#16374f,#255d83)' : 'linear-gradient(135deg,#ffffff,#dbe9f3)'}; box-shadow:0 4px 10px -4px rgba(0,0,0,.4), 0 0 0 1px ${({ theme }) => theme.colors.borderAlt}44 inset; transform:translateX(${({ theme }) => theme.mode==='dark' ? '28px' : '0'}); transition:transform .45s cubic-bezier(.55,.15,.25,1.2), background .5s ease, box-shadow .5s ease; display:flex; align-items:center; justify-content:center; color:${({ theme }) => theme.mode==='dark' ? theme.colors.white : theme.colors.secondary};
+  @media (max-width: 768px) {
+    width:22px; height:22px; top:3px; left:3px; transform:translateX(${({ theme }) => theme.mode==='dark' ? '24px' : '0'});
+  }
+  @media (max-width: 480px) {
+    display:none !important; /* completely hide thumb on phones */
+  }
 `;
 const TinyIcon = styled.span`
   width:14px; height:14px; display:inline-flex; align-items:center; justify-content:center; color:${({ theme }) => theme.mode==='dark'? theme.colors.white : theme.colors.secondary}; opacity:${({ $active }) => $active ? 1 : .35}; transform:scale(${({ $active }) => $active ? 1 : .82}); transition:opacity .45s ease, transform .45s ease; pointer-events:none; svg{display:block;}
+  @media (max-width: 768px) { width:12px; height:12px; }
+  @media (max-width: 480px) { display:none !important; /* completely hide switch icons on phones */ }
 `;
 
 // Re-added icon components
@@ -277,6 +345,7 @@ const Header = () => {
               <TinyIcon $active={mode !== 'dark'}><SunIcon /></TinyIcon>
               <TinyIcon $active={mode === 'dark'}><MoonIcon /></TinyIcon>
               <ToggleThumb>{mode==='dark'? <MoonIcon /> : <SunIcon />}</ToggleThumb>
+              <OnlyMobileIcon>{mode==='dark' ? <MoonIcon /> : <SunIcon />}</OnlyMobileIcon>
             </ThemeToggle>
             <ToggleButton onClick={toggleLanguage} aria-label={t('langToggle.aria')} style={{minWidth:54}}>
               {langCode === 'en' ? t('langToggle.ar') : t('langToggle.en')}

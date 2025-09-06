@@ -13,8 +13,14 @@ const MarqueeSection = styled.section`
   background: ${({ theme }) => theme.mode === 'dark'
     ? `linear-gradient(180deg, ${theme.colors.backgroundDark} 0%, ${theme.colors.panel} 55%, ${theme.colors.backgroundDark} 100%)`
     : `linear-gradient(180deg, ${theme.colors.primary} 0%, ${theme.colors.panel} 55%, ${theme.colors.primary} 100%)`};
-  border-top: 1px solid ${({ theme }) => theme.colors.borderAlt}33;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderAlt}33;
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 0;
+  }
 
   &::before, &::after {
     content: '';
@@ -24,6 +30,14 @@ const MarqueeSection = styled.section`
     height: 100%;
     z-index: 3;
     pointer-events: none;
+    
+    @media (max-width: 768px) {
+      width: 120px;
+    }
+    
+    @media (max-width: 480px) {
+      width: 80px;
+    }
   }
 
   &::before {
@@ -69,6 +83,16 @@ const MarqueeTrack = styled.div`
   gap: 2.25rem;
   position: relative;
 
+  @media (max-width: 768px) {
+    gap: 1.8rem;
+    margin-bottom: 0.4rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
   &.right {
     animation: ${scrollRight} 22s linear infinite;
   }
@@ -91,8 +115,12 @@ const MarqueeText = styled.span`
   transition: color .4s ease;
   letter-spacing: -0.02em;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (max-width: 768px) {
     font-size: clamp(1.1rem, 3.8vw, 2.3rem);
+  }
+
+  @media (max-width: 480px) {
+    font-size: clamp(1rem, 4.5vw, 2rem);
   }
 `;
 
@@ -105,8 +133,12 @@ const Separator = styled.span`
   opacity: .55;
   transition: color .4s ease, opacity .4s ease;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (max-width: 768px) {
     font-size: clamp(.9rem, 2.8vw, 1.9rem);
+  }
+
+  @media (max-width: 480px) {
+    font-size: clamp(.8rem, 3.5vw, 1.6rem);
   }
 `;
 

@@ -13,6 +13,15 @@ const Section = styled.section`
   padding: 6rem 2rem;
   position: relative;
   transition: background 0.4s ease, color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    padding: 5rem 1.5rem;
+    min-height: 100svh;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
+  }
 `;
 
 const TitleLabel = styled(motion.p)`
@@ -24,6 +33,17 @@ const TitleLabel = styled(motion.p)`
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    margin: 0 0 0.8rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
 `;
 
 const TitleHeading = styled(motion.h2)`
@@ -33,6 +53,17 @@ const TitleHeading = styled(motion.h2)`
   margin: 0 0 4rem 0;
   line-height: 1.1;
   transition: color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin: 0 0 3rem 0;
+    text-align: center;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin: 0 0 2.5rem 0;
+  }
 `;
 
 const Card = styled(motion.div)`
@@ -46,6 +77,21 @@ const Card = styled(motion.div)`
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   min-height: 120px;
   transition: background 0.4s ease, color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    min-height: auto;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+    gap: 0.8rem;
+  }
 `;
 
 const CardTitle = styled.h3`
@@ -54,6 +100,14 @@ const CardTitle = styled.h3`
   margin: 0;
   line-height: 1.2;
   color: inherit;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+  }
 `;
 
 const CardSubtitle = styled.p`
@@ -63,6 +117,15 @@ const CardSubtitle = styled.p`
   text-align: right;
   font-weight: 500;
   color: inherit;
+  
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(0.8rem, 3vw, 1rem);
+  }
 `;
 
 const Recognition = () => {
@@ -141,6 +204,7 @@ const Recognition = () => {
           flexDirection: 'column',
           gap: '2rem',
         }}
+        className="cards-container"
       >
         {recognitionData.map((item, index) => (
           <Card

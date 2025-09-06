@@ -16,6 +16,16 @@ const ApproachContainer = styled.section`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 6rem 2rem;
   }
+  
+  @media (max-width: 768px) {
+    padding: 5rem 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 4rem 1rem;
+  }
 `;
 
 const SectionTitle = styled(motion.h2)`
@@ -29,6 +39,16 @@ const SectionTitle = styled(motion.h2)`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin: 0 0 1.5rem 0;
   }
+  
+  @media (max-width: 768px) {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    margin: 0 0 1.8rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin: 0 0 1.5rem 0;
+  }
 `;
 
 const QuoteText = styled.p`
@@ -40,12 +60,27 @@ const QuoteText = styled.p`
   opacity: 0.95;
   transition: color 0.4s ease;
   max-width: 1000px;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    line-height: 1.6;
+    max-width: 100%;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    line-height: 1.65;
+  }
 `;
 
 const AnimatedWord = styled.span`
   display:inline-block; margin-right:0.3em; position:relative; will-change:filter, transform, opacity; filter:blur(6px); opacity:.25; transform:translateY(6px);
   transition:filter .9s cubic-bezier(.19,1,.22,1), opacity .9s cubic-bezier(.19,1,.22,1), transform .9s cubic-bezier(.19,1,.22,1);
   &.visible { filter:blur(0); opacity:1; transform:translateY(0); }
+  
+  @media (max-width: 480px) {
+    margin-right: 0.25em;
+  }
 `;
 
 const Approach = () => {

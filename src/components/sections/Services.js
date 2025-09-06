@@ -9,52 +9,171 @@ const ServicesSection = styled.section`
   background: ${({ theme }) => theme.mode === 'dark'
     ? 'linear-gradient(180deg, ' + theme.colors.primary + ' 0%, #061b29 45%, ' + theme.colors.backgroundDark + ' 100%)'
     : 'linear-gradient(180deg, ' + theme.colors.primary + ' 0%, #ffffff 40%, ' + theme.colors.panelAlt + ' 100%)'};
+    
+  @media (max-width: 768px) {
+    padding: 5rem 1.5rem 6rem;
+    min-height: auto;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 4rem 1rem 5rem;
+  }
 `;
 
 const SectionHeader = styled.div`
   max-width: 1200px; text-align: center; margin-bottom: 4rem; color: ${({ theme }) => theme.colors.secondary}; transition: color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 3rem;
+    max-width: 100%;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const SectionEyebrow = styled(motion.p)`
   font-size: 1.2rem; color: ${({ theme }) => theme.colors.textMedium}; opacity: 0.75; margin: 0 0 1rem 0; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    letter-spacing: 0.6px;
+  }
 `;
 
 const SectionTitle = styled(motion.h2)`
   font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; margin: 0 0 4rem 0; line-height: 1.1; color: ${({ theme }) => theme.colors.secondary}; transition: color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin: 0 0 3rem 0;
+    line-height: 1.2;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin: 0 0 2.5rem 0;
+    line-height: 1.3;
+    padding: 0 0.5rem;
+  }
 `;
 
 const SectionDivider = styled.div`
   width: 100%; height: 1px; background: linear-gradient(90deg, transparent, ${({ theme }) => theme.colors.borderAlt}, transparent); margin: 0 0 4rem; opacity: .6;
+  
+  @media (max-width: 768px) {
+    margin: 0 0 3rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin: 0 0 2.5rem;
+  }
 `;
 
 const CardsContainer = styled.div`
   position: relative; width: 90%; max-width: 900px; height: 520px; cursor: pointer; perspective: 1200px;
+  
+  @media (max-width: 768px) {
+    width: 95%;
+    height: 480px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 440px;
+    perspective: 800px;
+  }
 `;
 
 const ServiceCard = styled(motion.div)`
   position: absolute; top: 0; left: 0; right: 0; height: 100%; border-radius: 2rem; padding: 3rem; display: flex; flex-direction: column; justify-content: flex-start; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); transition: background 0.5s ease, color 0.5s ease, transform 0.5s ease, border-color 0.4s ease; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(6px);
+  
+  @media (max-width: 768px) {
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 15px 35px -8px rgba(0,0,0,0.35);
+  }
 `;
 
 const Tag = styled.span`
   background: ${({ theme }) => theme.mode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,45,75,0.08)'};
   color: ${({ theme }) => theme.colors.secondary};
   backdrop-filter: blur(10px); padding: 0.6rem 1.2rem; border-radius: 1.5rem; font-size: 0.85rem; font-weight: 500; border: 1px solid ${({ theme }) => theme.mode === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,45,75,0.15)'}; transition: background 0.4s ease, color 0.4s ease;
+  
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+  }
 `;
 
 const IconBullet = styled.span`
   background: ${({ theme }) => theme.mode === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,45,75,0.15)'}; width: 1.8rem; height: 1.8rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; font-size: 0.9rem; color: ${({ theme }) => theme.colors.secondary};
+  
+  @media (max-width: 768px) {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.7rem;
+  }
 `;
 
 const Indicators = styled.div`
   position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem;
+  
+  @media (max-width: 768px) {
+    bottom: 1.5rem;
+    gap: 0.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    bottom: 1.2rem;
+    gap: 0.3rem;
+  }
 `;
 
 const IndicatorDot = styled.div`
   width: 8px; height: 8px; border-radius: 50%; background-color: ${({ active, theme }) => active ? theme.colors.secondary : (theme.mode === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,45,75,0.3)')}; transition: background-color 0.3s ease;
+  
+  @media (max-width: 480px) {
+    width: 6px;
+    height: 6px;
+  }
 `;
 
 const NavBar = styled.nav`
   display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin: 0 0 2.75rem; max-width: 1180px;
+  
+  @media (max-width: 768px) {
+    gap: .6rem;
+    margin: 0 0 2.25rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: .5rem;
+    margin: 0 0 2rem;
+  }
 `;
 
 const NavButton = styled.button`
@@ -64,17 +183,47 @@ const NavButton = styled.button`
   &:hover { opacity: 1; }
   &:focus-visible { outline: 2px solid ${({ theme }) => theme.colors.secondary}; outline-offset: 2px; }
   &[data-dir='prev'], &[data-dir='next'] { font-size: .7rem; }
+  
+  @media (max-width: 768px) {
+    padding: .5rem .8rem;
+    font-size: .7rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: .45rem .7rem;
+    font-size: .65rem;
+    letter-spacing: .03em;
+  }
 `;
 
 const Hint = styled.div`
   position: absolute; top: 0; right: 1rem; display: flex; align-items: center; gap: .4rem; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; opacity: .55; pointer-events: none;
   @media (max-width: 820px) { position: static; margin: 0 0 1.5rem; }
+  
+  @media (max-width: 480px) {
+    font-size: .6rem;
+    margin: 0 0 1.2rem;
+    gap: .3rem;
+  }
 `;
 
 const ToggleAllButton = styled.button`
   appearance: none; border: none; background: ${({ theme }) => theme.colors.panel}; color: ${({ theme }) => theme.colors.secondary}; padding: .85rem 1.25rem; border-radius: .9rem; font-size: .8rem; font-weight: 600; letter-spacing: .05em; cursor: pointer; margin: 2.5rem auto 0; display: inline-flex; align-items: center; gap: .5rem; border: 1px solid ${({ theme }) => theme.colors.borderAlt}; transition: background .35s ease, color .35s ease, border-color .35s ease, transform .3s ease;
   &:hover { transform: translateY(-2px); }
   &:focus-visible { outline: 2px solid ${({ theme }) => theme.colors.secondary}; outline-offset: 3px; }
+  
+  @media (max-width: 768px) {
+    padding: .75rem 1.1rem;
+    font-size: .75rem;
+    margin: 2rem auto 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: .65rem 1rem;
+    font-size: .7rem;
+    margin: 1.5rem auto 0;
+    gap: .4rem;
+  }
 `;
 
 const AllGrid = styled.div`
@@ -174,7 +323,6 @@ const Services = () => {
 
   return (
     <ServicesSection ref={containerRef} tabIndex={0} aria-roledescription="Services carousel" aria-label="Services" id="services">
-      <SectionDivider />
       <SectionHeader>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={titleVariants}>
           <SectionEyebrow variants={titleVariants}>{t('services.eyebrow')}</SectionEyebrow>

@@ -13,6 +13,15 @@ const HeroContainer = styled.section`
   padding: 8rem 2rem 4rem;
   background-color: ${({ theme }) => theme.colors.primary};
   text-align: center;
+  
+  @media (max-width: 768px) {
+    padding: 6rem 1.5rem 3rem;
+    min-height: 100svh; /* Use svh for better mobile viewport handling */
+  }
+  
+  @media (max-width: 480px) {
+    padding: 5rem 1rem 2.5rem;
+  }
 `;
 
 const HeroContent = styled.div`
@@ -22,6 +31,14 @@ const HeroContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 3rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const MainTitle = styled(motion.h1)`
@@ -35,8 +52,17 @@ const MainTitle = styled(motion.h1)`
   text-align: center;
   width: 100%;
   
-  @media (max-width: 767px) {
-    font-size: clamp(2.2rem, 7vw, 3.5rem);
+  @media (max-width: 768px) {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 0.95;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    line-height: 1;
+    margin: 0 0 1.2rem 0;
+    letter-spacing: -0.01em;
   }
 `;
 
@@ -49,8 +75,18 @@ const Description = styled(motion.p)`
   opacity: 0.8;
   text-align: center;
   
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 480px) {
     font-size: 1rem;
+    line-height: 1.4;
+    max-width: 95%;
+    padding: 0 0.5rem;
   }
 `;
 
@@ -75,12 +111,46 @@ const DownArrow = styled(motion.div)`
     color: ${({ theme }) => theme.colors.primary};
     font-size: 1.5rem;
   }
+  
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 45px;
+    margin: 3rem auto 0;
+    
+    &::after {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 40px;
+    margin: 2.5rem auto 0;
+    
+    &::after {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const floatPulse = keyframes`0%{transform:translateY(0) scale(1);} 50%{transform:translateY(-8px) scale(1.04);} 100%{transform:translateY(0) scale(1);}`;
 const glow = keyframes`0%{opacity:.35;} 50%{opacity:.75;} 100%{opacity:.35;}`;
 
-const LogoImgHero = styled.img`height:54px; width:auto; display:block; object-fit:contain; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35));`;
+const LogoImgHero = styled.img`
+  height:54px; 
+  width:auto; 
+  display:block; 
+  object-fit:contain; 
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.35));
+  
+  @media (max-width: 768px) {
+    height: 48px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 42px;
+  }
+`;
 
 const ExpandLogo = styled.div`
   position:relative; margin:0 auto 2.6rem; height:86px; width:86px; border-radius:28px; display:flex; align-items:center; justify-content:center; overflow:hidden; isolation:isolate;
@@ -89,6 +159,22 @@ const ExpandLogo = styled.div`
   animation:${floatPulse} 5.5s ease-in-out infinite;
   &:before{content:''; position:absolute; inset:-25%; background:radial-gradient(circle at 50% 60%, ${({ theme }) => theme.colors.accent}55, transparent 70%); filter:blur(30px); z-index:-1; animation:${glow} 6s ease-in-out infinite;}
   &:after{content:''; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(160deg,#ffffffaa,transparent 60%); mix-blend-mode:overlay; opacity:.35;}
+  
+  @media (max-width: 768px) {
+    height: 78px;
+    width: 78px;
+    margin: 0 auto 2.2rem;
+    border-radius: 26px;
+    box-shadow: 0 10px 28px -8px rgba(0,0,0,.4), 0 0 0 5px ${({ theme }) => theme.colors.accent}22, inset 0 0 0 1px ${({ theme }) => theme.colors.white}22;
+  }
+  
+  @media (max-width: 480px) {
+    height: 70px;
+    width: 70px;
+    margin: 0 auto 1.8rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px -6px rgba(0,0,0,.4), 0 0 0 4px ${({ theme }) => theme.colors.accent}22, inset 0 0 0 1px ${({ theme }) => theme.colors.white}22;
+  }
 `;
 
 const Badge = styled.span`

@@ -6,14 +6,101 @@ const Wrapper = styled.div`
   min-height:100vh; background:${({ theme }) => theme.colors.primary}; color:${({ theme }) => theme.colors.text};
   padding:6.5rem clamp(1.2rem,4vw,3rem) 4rem; line-height:1.65; transition:background .4s ease, color .4s ease; position:relative;
   max-width: 1100px; margin:0 auto; font-size:clamp(.9rem,1rem + .2vw,1.05rem);
+  
+  @media (max-width: 768px) {
+    padding: 5.5rem clamp(1rem,3vw,2rem) 3rem;
+    line-height: 1.6;
+    font-size: clamp(.85rem, 1rem + .15vw, 1rem);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 4.5rem 1rem 2.5rem;
+    line-height: 1.55;
+    font-size: .9rem;
+  }
 `;
 
-const Title = styled.h1`margin:0 0 2.5rem; font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:700; letter-spacing:-.02em; color:${({ theme }) => theme.colors.secondary};`;
-const Article = styled.section`margin:0 0 2.2rem;`; 
-const Heading = styled.h2`margin:0 0 .85rem; font-size:clamp(1.15rem,2.2vw,1.55rem); font-weight:600; letter-spacing:.02em; color:${({ theme }) => theme.colors.secondary};`;
-const Sub = styled.h3`margin:2rem 0 .75rem; font-size:1rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; opacity:.8; color:${({ theme }) => theme.colors.textMedium};`;
-const Paragraph = styled.p`margin:.75rem 0;`;
-const List = styled.ul`margin:.5rem 0 1rem 1.25rem; padding:0; list-style:disc; li{margin:.4rem 0;}`;
+const Title = styled.h1`
+  margin:0 0 2.5rem; font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:700; letter-spacing:-.02em; color:${({ theme }) => theme.colors.secondary};
+  
+  @media (max-width: 768px) {
+    margin: 0 0 2rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    text-align: center;
+  }
+  
+  @media (max-width: 480px) {
+    margin: 0 0 1.8rem;
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+  }
+`;
+
+const Article = styled.section`
+  margin:0 0 2.2rem;
+  
+  @media (max-width: 768px) {
+    margin: 0 0 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin: 0 0 1.8rem;
+  }
+`; 
+
+const Heading = styled.h2`
+  margin:0 0 .85rem; font-size:clamp(1.15rem,2.2vw,1.55rem); font-weight:600; letter-spacing:.02em; color:${({ theme }) => theme.colors.secondary};
+  
+  @media (max-width: 768px) {
+    margin: 0 0 .75rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  }
+  
+  @media (max-width: 480px) {
+    margin: 0 0 .65rem;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+  }
+`;
+
+const Sub = styled.h3`
+  margin:2rem 0 .75rem; font-size:1rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; opacity:.8; color:${({ theme }) => theme.colors.textMedium};
+  
+  @media (max-width: 768px) {
+    margin: 1.8rem 0 .65rem;
+    font-size: .95rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin: 1.5rem 0 .6rem;
+    font-size: .9rem;
+  }
+`;
+
+const Paragraph = styled.p`
+  margin:.75rem 0;
+  
+  @media (max-width: 768px) {
+    margin: .65rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    margin: .6rem 0;
+  }
+`;
+
+const List = styled.ul`
+  margin:.5rem 0 1rem 1.25rem; padding:0; list-style:disc; 
+  li{margin:.4rem 0;}
+  
+  @media (max-width: 768px) {
+    margin: .45rem 0 .9rem 1rem;
+    li{margin: .35rem 0;}
+  }
+  
+  @media (max-width: 480px) {
+    margin: .4rem 0 .8rem .8rem;
+    li{margin: .3rem 0; font-size: .85rem;}
+  }
+`;
 const BackLink = styled.a``; // deprecated (kept minimal to avoid removal warnings)
 
 const Terms = () => {
