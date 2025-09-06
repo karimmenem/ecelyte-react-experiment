@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { theme as baseTheme, createTheme } from '../../styles/theme';
 import Header from './Header';
 import Footer from './Footer';
-import { LanguageProvider } from '../../contexts/LanguageContext';
+import { useRouter } from 'next/router';
 
 export const ThemeModeContext = createContext({ mode: 'light', toggle: () => {}, theme: baseTheme });
 
@@ -22,18 +22,18 @@ const Layout = ({ children }) => {
   const [mode, setMode] = useState('light');
   const activeTheme = useMemo(() => (mode === 'dark' ? createTheme('dark') : createTheme('light')), [mode]);
   const toggle = () => setMode(m => m === 'light' ? 'dark' : 'light');
+  const router = useRouter();
+  const hideHeader = router && (router.pathname === '/admin/login' || router.pathname === '/careers');
   return (
     <ThemeModeContext.Provider value={{ mode, toggle, theme: activeTheme }}>
       <ThemeProvider theme={activeTheme}>
-        <LanguageProvider>
-          <LayoutContainer>
-            <Header />
-            <MainContent>
-              {children}
-            </MainContent>
-            <Footer />
-          </LayoutContainer>
-        </LanguageProvider>
+        <LayoutContainer>
+          {!hideHeader && <Header />}
+          <MainContent>
+            {children}
+          </MainContent>
+          <Footer />
+        </LayoutContainer>
       </ThemeProvider>
     </ThemeModeContext.Provider>
   );

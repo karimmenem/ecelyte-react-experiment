@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { getInsights, subscribe } from '../../utils/insightsStore';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const Section = styled.section`
@@ -219,17 +218,51 @@ const Empty = styled.div`
 
 const Insights = () => {
   const { t } = useLanguage();
-  const [items, setItems] = useState(getInsights());
-  const [displayValues, setDisplayValues] = useState(() => Object.fromEntries(getInsights().map(i => [i.id, 0])));
+  const [items, setItems] = useState([]);
+  const [displayValues, setDisplayValues] = useState({});
   const [inView, setInView] = useState(false);
   const [replaySet, setReplaySet] = useState(new Set());
   const rafRefs = useRef({});
   const sectionRef = useRef(null);
   const prefersReduced = useRef(false);
 
-  useEffect(() => { const mq = window.matchMedia('(prefers-reduced-motion: reduce)'); prefersReduced.current = mq.matches; const handler = (e)=> prefersReduced.current = e.matches; mq.addEventListener('change', handler); return () => mq.removeEventListener('change', handler); }, []);
+  useEffect(() => { 
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)'); 
+    prefersReduced.current = mq.matches; 
+    const handler = (e) => prefersReduced.current = e.matches; 
+    mq.addEventListener('change', handler); 
+    return () => mq.removeEventListener('change', handler); 
+  }, []);
 
-  useEffect(() => { const unsub = subscribe(setItems); return () => unsub(); }, []);
+  // Fetch insights from API
+  useEffect(() => {
+    const fetchInsights = async () => {
+      try {
+        console.log('Fetching insights from API...');
+        const response = await fetch('/api/insights');
+        console.log('API response status:', response.status);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Insights data received:', data);
+          setItems(data);
+          // Initialize display values
+          const initialValues = Object.fromEntries(data.map(i => [i.id, 0]));
+          setDisplayValues(initialValues);
+        } else {
+          console.error('Failed to fetch insights, status:', response.status);
+          // Fallback to empty array so component still renders
+          setItems([]);
+        }
+      } catch (error) {
+        console.error('Error fetching insights:', error);
+        // Fallback to empty array so component still renders
+        setItems([]);
+      }
+    };
+
+    fetchInsights();
+  }, []);
 
   useEffect(() => { // intersection observer
     const el = sectionRef.current; if(!el) return; const obs = new IntersectionObserver(([entry]) => { if(entry.isIntersecting){ setInView(true); } }, { threshold: 0.25 }); obs.observe(el); return () => obs.disconnect();

@@ -278,13 +278,22 @@ const EmailRow = styled.div`font-size:1.1rem; margin-bottom:2rem; display:flex; 
 const Label = styled.label`display:block; font-size:.8rem; font-weight:500; letter-spacing:.05em; text-transform:uppercase; color:${({ theme }) => theme.colors.textLight}; margin:0 0 .4rem;`;
 const Input = styled.input`width:100%; padding:.75rem .85rem; border:1px solid ${({ theme }) => theme.colors.border}; border-radius:8px; font-size:.85rem; background:${({ theme }) => theme.mode === 'dark' ? theme.colors.panel : theme.colors.white}; color:${({ theme }) => theme.colors.text}; transition:border-color .3s ease, background .4s ease, color .4s ease; &:focus{outline:none; border-color:${({ theme }) => theme.colors.accent}; box-shadow:0 0 0 2px ${({ theme }) => theme.colors.accent}33;}`;
 const TextArea = styled.textarea`width:100%; padding:.75rem .85rem; border:1px solid ${({ theme }) => theme.colors.border}; border-radius:8px; font-size:.85rem; background:${({ theme }) => theme.mode === 'dark' ? theme.colors.panel : theme.colors.white}; color:${({ theme }) => theme.colors.text}; resize:vertical; transition:border-color .3s ease, background .4s ease, color .4s ease; &:focus{outline:none; border-color:${({ theme }) => theme.colors.accent}; box-shadow:0 0 0 2px ${({ theme }) => theme.colors.accent}33;}`;
-const SubmitButton = styled.button`background:${({ theme }) => theme.colors.accent}; color:${({ theme }) => theme.colors.white}; border:none; padding:1rem 2rem; border-radius:25px; font-size:.9rem; font-weight:500; cursor:pointer; transition:background .35s ease, transform .35s ease; align-self:flex-start; margin-top:auto; &:hover{background:${({ theme }) => theme.colors.secondary}; transform:translateY(-3px);} &:focus-visible{outline:2px solid ${({ theme }) => theme.colors.secondary}; outline-offset:3px;}`;
+const SubmitButton = styled.button`background:${({ theme }) => theme.colors.accent}; color:${({ theme }) => theme.colors.white}; border:none; padding:1rem 2rem; border-radius:25px; font-size:.9rem; font-weight:500; cursor:pointer; transition:background .35s ease, transform .35s ease; align-self:flex-start; margin-top:auto; &:hover:not(:disabled){background:${({ theme }) => theme.colors.secondary}; transform:translateY(-3px);} &:focus-visible{outline:2px solid ${({ theme }) => theme.colors.secondary}; outline-offset:3px;} &:disabled{opacity:0.6; cursor:not-allowed; transform:none;}`;
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
   const lastY = React.useRef(0);
   const ticking = React.useRef(false);
   const { mode, toggle, theme } = useThemeMode();
@@ -322,16 +331,69 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+    setPreviewUrl('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage('Message sent successfully! We\'ll get back to you soon.');
+        if (result.previewUrl) {
+          setPreviewUrl(result.previewUrl);
+        }
+        setFormData({ name: '', email: '', company: '', message: '' });
+        setTimeout(() => {
+          setIsContactOpen(false);
+          setSubmitMessage('');
+          setPreviewUrl('');
+        }, 2000);
+      } else {
+        setSubmitMessage(result.message || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setSubmitMessage('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const toggleContact = () => {
     setIsContactOpen(!isContactOpen);
     if (isMenuOpen) setIsMenuOpen(false);
+    // Reset form when opening/closing
+    if (!isContactOpen) {
+      setFormData({ name: '', email: '', company: '', message: '' });
+      setSubmitMessage('');
+      setPreviewUrl('');
+    }
   };
 
   return (
     <>
       <HeaderContainer $scrolled={scrolled} $hidden={hidden}>
         <Nav>
-          <LogoLink href="#home" aria-label="Encelyte home">
+          <LogoLink href="/" aria-label="Encelyte home">
             {/* Replaced text logo with image */}
             <LogoImg src="/encelyte_logo.png" alt="Encelyte" loading="lazy" />
           </LogoLink>
@@ -369,10 +431,10 @@ const Header = () => {
             <MenuClose onClick={toggleMenu}>{t('header.close')}</MenuClose>
           </MenuTop>
           <MenuLinks>
-            <MenuLink href="#home" onClick={toggleMenu}>{t('header.home')}</MenuLink>
+            <MenuLink href="/" onClick={toggleMenu}>{t('header.home')}</MenuLink>
             <MenuLink href="#services" onClick={toggleMenu}>{t('header.services')}</MenuLink>
-            <MenuLink href="#/admin/login" className="small" onClick={toggleMenu}>{t('header.admin')}</MenuLink>
-            <MenuLink href="#/careers" className="small" onClick={toggleMenu}>{t('header.careers')}</MenuLink>
+            <MenuLink href="/admin" className="small" onClick={toggleMenu}>{t('header.admin')}</MenuLink>
+            <MenuLink href="/careers" className="small" onClick={toggleMenu}>{t('header.careers')}</MenuLink>
             <div style={{marginTop:'auto', paddingTop:'1.1rem', borderTop:`1px solid ${theme.colors.borderAlt}33`}}>
               <div style={{fontSize:'.58rem', letterSpacing:'.18em', textTransform:'uppercase', opacity:.45, marginBottom:'.55rem'}}>{t('header.connect')}</div>
               <SocialGrid style={{gap:'.65rem'}}>
@@ -420,26 +482,83 @@ const Header = () => {
               <div>{t('contact.location')}</div>
               <div>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {t('contact.local')}</div>
             </MetaBlock>
-            <form style={{ display:'flex', flexDirection:'column', gap:'1.25rem', flex:1 }}>
+            <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'1.25rem', flex:1 }}>
+              {submitMessage && (
+                <div style={{ 
+                  padding: '0.75rem', 
+                  borderRadius: '8px', 
+                  backgroundColor: submitMessage.includes('successfully') ? '#4ade80' : '#ef4444',
+                  color: 'white',
+                  fontSize: '0.85rem',
+                  textAlign: 'center'
+                }}>
+                  {submitMessage}
+                </div>
+              )}
+              {previewUrl && (
+                <div style={{
+                  padding: '0.6rem 0.75rem',
+                  borderRadius: '8px',
+                  background: '#1f2937',
+                  color: 'white',
+                  fontSize: '0.85rem',
+                  textAlign: 'center'
+                }}>
+                  Test mode: View your email preview here — <a href={previewUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#60a5fa', textDecoration: 'underline' }}>Open preview</a>
+                </div>
+              )}
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                 <div>
                   <Label htmlFor="contact-name">{t('contact.nameQ')}</Label>
-                  <Input id="contact-name" type="text" placeholder={t('contact.nameQ')} />
+                  <Input 
+                    id="contact-name" 
+                    name="name"
+                    type="text" 
+                    placeholder={t('contact.nameQ')} 
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </div>
                 <div>
                   <Label htmlFor="contact-email">{t('contact.emailQ')}</Label>
-                  <Input id="contact-email" type="email" placeholder={t('contact.emailQ')} />
+                  <Input 
+                    id="contact-email" 
+                    name="email"
+                    type="email" 
+                    placeholder={t('contact.emailQ')}
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </div>
               </div>
               <div>
                 <Label htmlFor="contact-company">{t('contact.companyQ')}</Label>
-                <Input id="contact-company" type="text" placeholder={t('contact.companyQ')} />
+                <Input 
+                  id="contact-company" 
+                  name="company"
+                  type="text" 
+                  placeholder={t('contact.companyQ')}
+                  value={formData.company}
+                  onChange={handleInputChange}
+                />
               </div>
               <div>
                 <Label htmlFor="contact-message">{t('contact.messageQ')}</Label>
-                <TextArea id="contact-message" rows={4} placeholder={t('contact.messageQ')} />
+                <TextArea 
+                  id="contact-message" 
+                  name="message"
+                  rows={4} 
+                  placeholder={t('contact.messageQ')}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                />
               </div>
-              <SubmitButton type="submit">{t('contact.send')}</SubmitButton>
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : t('contact.send')}
+              </SubmitButton>
             </form>
           </ContactPanel>
         </>

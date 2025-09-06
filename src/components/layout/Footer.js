@@ -238,15 +238,15 @@ const Footer = () => {
             <MailLink href="mailto:contact@encelyte.com"><span>contact</span><span style={{opacity:.65}}>@</span><span>encelyte.com</span></MailLink>
           </CTALeft>
           <QuickLinks aria-label="Quick navigation">
-            <QuickLink href="#home">{t('footer.quick.home')}</QuickLink>
+            <QuickLink href="/">{t('footer.quick.home')}</QuickLink>
             <QuickLink href="#services">{t('footer.quick.services')}</QuickLink>
           </QuickLinks>
         </CTACluster>
         <Divider>
           <Legal>{t('footer.legal')}</Legal>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <PolicyLink href="#/terms">{t('footer.terms')}</PolicyLink>
-            <PolicyLink href="#/privacy">{t('footer.privacy')}</PolicyLink>
+            <PolicyLink href="/terms">{t('footer.terms')}</PolicyLink>
+            <PolicyLink href="/privacy">{t('footer.privacy')}</PolicyLink>
           </div>
         </Divider>
       </Inner>

@@ -1,0 +1,86 @@
+{
+  "insights": [
+    {
+      "id": 1,
+      "labelKey": "insights.labels.impact",
+      "descriptionKey": "insights.descriptions.impact",
+      "value": 150,
+      "suffix": "+",
+      "updatedAt": "2025-09-06T13:31:46.495Z"
+    },
+    {
+      "id": 2,
+      "labelKey": "insights.labels.growth",
+      "descriptionKey": "insights.descriptions.growth",
+      "value": 42,
+      "suffix": "%",
+      "updatedAt": "2025-09-06T16:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "labelKey": "insights.labels.retention",
+      "descriptionKey": "insights.descriptions.retention",
+      "value": 93,
+      "suffix": "%",
+      "updatedAt": "2025-09-06T16:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "labelKey": "insights.labels.deploys",
+      "descriptionKey": "insights.descriptions.deploys",
+      "value": 312,
+      "suffix": "",
+      "updatedAt": "2025-09-06T16:00:00.000Z"
+    }
+  ],
+  "careers": [],
+  "contacts": [
+    {
+      "_id": "contact_1757164823329_igd3xmyyk",
+      "name": "Test User",
+      "email": "test@example.com",
+      "company": "Test Co",
+      "message": "Test message",
+      "createdAt": "2025-09-06T13:20:23.329Z"
+    },
+    {
+      "_id": "contact_1757165595770_6sjd14lyh",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "company": "Test Corp",
+      "message": "This is a test message from the contact form.",
+      "createdAt": "2025-09-06T13:33:15.770Z"
+    },
+    {
+      "_id": "contact_1757173428461_wq0efvfvu",
+      "name": "karim",
+      "email": "user@gmail.com",
+      "company": "Tooly",
+      "message": "hello I'm tooly",
+      "createdAt": "2025-09-06T15:43:48.461Z"
+    },
+    {
+      "_id": "contact_1757173454964_ldyuxtew7",
+      "name": "adkfdsj",
+      "email": "jksldsjaklfadsj@gmail.com",
+      "company": "jdfljds",
+      "message": "dskjfldjkjf jsadjdsaklfjdsf",
+      "createdAt": "2025-09-06T15:44:14.964Z"
+    },
+    {
+      "_id": "contact_1757173995582_jy9o2qyi0",
+      "name": "Karim Menem",
+      "email": "user@gmail.com",
+      "company": "jdfljds",
+      "message": "jljkdsjfkajdsfjdasl",
+      "createdAt": "2025-09-06T15:53:15.582Z"
+    }
+  ],
+  "admin_users": [
+    {
+      "username": "admin",
+      "passwordHash": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "createdAt": "2025-09-06T16:00:00.000Z"
+    }
+  ]
+}

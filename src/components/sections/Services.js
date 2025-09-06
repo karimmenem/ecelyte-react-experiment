@@ -448,7 +448,7 @@ const Services = () => {
 
   return (
     <ServicesSection ref={containerRef} tabIndex={0} aria-roledescription="Services carousel" aria-label="Services" id="services">
-      <p style={{ textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7, margin: '0 0 0.5rem 0', fontSize: isSmallMobile ? '0.75rem' : '0.85rem' }}>Services</p>
+      <p style={{ textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7, margin: '0 0 0.5rem 0', fontSize: isSmallMobile ? '0.75rem' : '0.85rem' }}>{t('services.eyebrow')}</p>
       {/* Header - title only */}
       <SectionHeader>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={titleVariants}>
